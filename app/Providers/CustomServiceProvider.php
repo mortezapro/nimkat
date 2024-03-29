@@ -10,18 +10,8 @@ use Illuminate\Support\ServiceProvider;
 
 class CustomServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     */
-    public function register(): void
-    {
-        $this->app->bind(
-            UserServiceInterface::class,
-            UserService::class,
-        );
-        $this->app->bind(
-            MessageServiceInterface::class,
-            MessageService::class,
-        );
-    }
+    public array $bindings = [
+        UserServiceInterface::class => UserService::class,
+        MessageServiceInterface::class => MessageService::class,
+    ];
 }

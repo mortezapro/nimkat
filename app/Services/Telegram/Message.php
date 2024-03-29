@@ -9,10 +9,10 @@ class Message implements TelegramInterface {
 
     protected mixed $update;
     protected UserServiceInterface $userService;
-    public function __construct($update,UserServiceInterface $userService)
+    public function __construct($update)
     {
         $this->update = $update;
-        $this->userService = $userService;
+        $this->userService = App::make(UserServiceInterface::class);
     }
 
     public function handle()
