@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\Telegram;
 
+use App\Services\User\UserService;
 use App\Services\User\UserServiceInterface;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
@@ -8,11 +9,11 @@ use Illuminate\Support\Facades\Log;
 class Message implements TelegramInterface {
 
     protected mixed $update;
-    protected UserServiceInterface $userService;
+    protected UserService $userService;
     public function __construct($update)
     {
         $this->update = $update;
-//        $this->userService = App::make(UserServiceInterface::class);
+        $this->userService = App::make(UserService::class);
     }
 
     public function handle()
