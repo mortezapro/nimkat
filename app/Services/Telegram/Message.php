@@ -13,6 +13,6 @@ class Message implements TelegramInterface {
 
     public function handle()
     {
-        Log::info("message");
+        Log::info($this->update);
     }
 }
