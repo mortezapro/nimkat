@@ -3,15 +3,17 @@ namespace App\Services\Telegram;
 
 class TelegramService{
     protected $update;
-    public function __construct($update)
+    protected $action;
+    public function __construct($update,array $action)
     {
         $this->update = $update;
+        $this->action = $action;
     }
 
     public function handle()
     {
-        foreach ($this->update as $name => $value) {
-            $normalizedName = ucfirst($name);
+        foreach ($this->action as $value) {
+            $normalizedName = ucfirst($value);
             $namespace = 'App\Services\Telegram';
             $class = $namespace . "\\{$normalizedName}";
 
@@ -19,13 +21,7 @@ class TelegramService{
                 continue;
             }
 
-            if (strlen($value)) {
-                (new $class($this->update))->handle($value);
-            } else {
-                (new $class($this->update))->handle();
-            }
+            (new $class($this->action))->handle($this->update);
         }
-
-        return "ok";
     }
 }
