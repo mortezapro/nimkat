@@ -20,7 +20,8 @@ class Message implements TelegramInterface {
     {
 //        $array = (array) $this->update;
         $update = (array)$this->update;
-        Log::info($update["message"]);
+        $keys = array_keys($update);
+        Log::info((object)$keys);
 //        if(!$this->userService->exist( $this->update->message->id )){
 //            $this->userService->store( (array)$this->update->message );
 //        }
