@@ -49,4 +49,13 @@ class BaseService implements BaseServiceInterface {
     {
         return $this->model->truncate();
     }
+
+    public function get(array $columns = null)
+    {
+        if ($columns) {
+            return $this->model->get($columns);
+        }
+        return $this->model->get();
+    }
+
 }
