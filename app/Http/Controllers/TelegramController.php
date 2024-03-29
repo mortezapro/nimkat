@@ -33,7 +33,6 @@ class TelegramController extends Controller
         $action = ["message","reaction"];
         $telegram = new TelegramService($update,$action);
         $telegram->handle();
-        Log::info("ok");
 //        Log::info("Message: ".(object)$update);
 //	    Log::info($update->message_reaction);
 //        if (isset($update->message)) {
