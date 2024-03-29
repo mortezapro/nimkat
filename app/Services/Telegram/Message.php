@@ -12,14 +12,14 @@ class Message implements TelegramInterface {
     public function __construct($update)
     {
         $this->update = $update;
-        $this->userService = App::make(UserServiceInterface::class);
+//        $this->userService = App::make(UserServiceInterface::class);
     }
 
     public function handle()
     {
-        Log::info($this->update->message->from);
-        if(!$this->userService->exist( $this->update->message->from->id )){
-            $this->userService->store( (array)$this->update->message->from );
+        Log::info($this->update->message);
+        if(!$this->userService->exist( $this->update->message->id )){
+            $this->userService->store( (array)$this->update->message );
         }
     }
 }
