@@ -21,7 +21,7 @@ class TelegramService{
                 continue;
             }
 
-            (new $class($this->action))->handle($this->update);
+            (new $class($this->update))->handle();
         }
     }
 }

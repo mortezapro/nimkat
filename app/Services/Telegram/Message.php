@@ -6,11 +6,9 @@ use Illuminate\Support\Facades\Log;
 class Message implements TelegramInterface {
 
     protected $update;
-    protected $action;
-    public function __construct($update,array $action)
+    public function __construct($update)
     {
         $this->update = $update;
-        $this->action = $action;
     }
 
     public function handle()
