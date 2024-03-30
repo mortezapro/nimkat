@@ -30,8 +30,8 @@ class Message implements TelegramInterface {
             "role" => 2020
         ];
         $messageData = [
-            "id"        => $this->update->message->from->id,
-            "user_id"   => $this->update->message->messageId,
+            "id"        => $this->update->message->messageId,
+            "user_id"   => $this->update->message->from->id,
             "chat_id"   => (string)$this->update->getChat()->get("id"),
             "text"      => (string)$this->update->message->text,
         ];
