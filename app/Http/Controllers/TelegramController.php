@@ -38,7 +38,7 @@ class TelegramController extends Controller
         if (property_exists(json_decode($update), 'message')) {
             $action = "EditMessage";
         }
-//        Log::info($update);
+        Log::info($action);
 
         $telegram = new TelegramService($update,$action);
         $telegram->handle();
