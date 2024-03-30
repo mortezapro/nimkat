@@ -33,12 +33,14 @@ class TelegramController extends Controller
         $update = $bot->getWebhookUpdate();
         Log::info($update->message);
         if (isset($update->message)) {
-            $action = "CreateMessage";
+//            $action = "CreateMessage";
+            Log::info("create");
         }
         if (isset($update->edit_message)){
-            $action = "EditMessage";
+//            $action = "EditMessage";
+            Log::info("edit");
         }
-        Log::info($action);
+
 
 //        $telegram = new TelegramService($update,$action);
 //        $telegram->handle();
