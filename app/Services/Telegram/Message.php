@@ -42,7 +42,7 @@ class Message implements TelegramInterface {
         $message->id = $this->update->message->from->id;
         $message->user_id = $this->update->message->messageId;
         $message->chat_id = (string)$this->update->getChat()->get("id");
-        $message->text = $this->update->message->text;
+        $message->text = (string)$this->update->message->text;
         $message->save();
 //        $this->messageService->store($messageData);
 
