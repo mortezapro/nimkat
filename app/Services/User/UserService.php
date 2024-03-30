@@ -13,14 +13,4 @@ class UserService extends  BaseService  {
     {
         $this->model = $model;
     }
-
-    public function exist(int $id)
-    {
-        // بعدا از کش خوانده شود. ترجیحا بعد از یک ماه
-//        return Cache::remember('users.check.' . $id, 60*60*2, function () use ($id) {
-//            return $this->model->where("id","=",$id)->exists();
-//        });
-        Log::info($this->model->where("id","=",$id)->exists());
-        return $this->model->where("id","=",$id)->exists();
-    }
 }

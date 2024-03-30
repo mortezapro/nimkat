@@ -33,8 +33,8 @@ class Message implements TelegramInterface {
             "role" => 2020
         ];
 
-        if(!$this->userService->exist( $this->update->message->from->id )){
-//            $user = $this->userService->store($userData);
+        if(!$this->userService->count( ["id","=",$this->update->message->from->id]) == 0){
+            $user = $this->userService->store($userData);
             Log::info("no exist");
         } else {
             Log::info("exist");
