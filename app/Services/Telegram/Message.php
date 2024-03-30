@@ -29,22 +29,22 @@ class Message implements TelegramInterface {
             "username" => $this->update->message->from->username,
             "role" => 2020
         ];
-//        $messageData = [
-//            "id"        => $this->update->message->from->id,
-//            "user_id"   => $this->update->message->messageId,
-//            "chat_id"   => $this->update->getChat()->get("id"),
-//            "text"      => $this->update->message->text,
-//        ];
+        $messageData = [
+            "id"        => $this->update->message->from->id,
+            "user_id"   => $this->update->message->messageId,
+            "chat_id"   => (string)$this->update->getChat()->get("id"),
+            "text"      => (string)$this->update->message->text,
+        ];
         if($this->userService->count( ["id" => $this->update->message->from->id]) == 0){
             $this->userService->store($userData);
         }
-        $message = new MessageModel();
-        $message->id = $this->update->message->from->id;
-        $message->user_id = $this->update->message->messageId;
-        $message->chat_id = (string)$this->update->getChat()->get("id");
-        $message->text = (string)$this->update->message->text;
-        $message->save();
-//        $this->messageService->store($messageData);
+//        $message = new MessageModel();
+//        $message->id = $this->update->message->from->id;
+//        $message->user_id = $this->update->message->messageId;
+//        $message->chat_id = (string)$this->update->getChat()->get("id");
+//        $message->text = (string)$this->update->message->text;
+//        $message->save();
+        $this->messageService->store($messageData);
 
     }
 }
