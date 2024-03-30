@@ -30,9 +30,11 @@ class TelegramController extends Controller
     {
         $bot = new Api(env('TELEGRAM_BOT_TOKEN'));
         $update = $bot->getWebhookUpdate();
-        $action = ["CreateMessage","createReaction"];
-        $telegram = new TelegramService($update,$action);
-        $telegram->handle();
+        Log::info($update);
+
+//        $action = ["CreateMessage","createReaction"];
+//        $telegram = new TelegramService($update,$action);
+//        $telegram->handle();
 //	    Log::info($update->message_reaction);
 //        if (isset($update->message)) {
 //		    Log::info("Message: ".$update->message->text);
