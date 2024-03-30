@@ -38,6 +38,7 @@ class CreateMessage implements TelegramInterface {
         if($this->userService->count( ["id" => $this->update->message->from->id]) == 0){
             $this->userService->store($userData);
         }
+        Log::info("run");
         $this->messageService->store($messageData);
     }
 }
