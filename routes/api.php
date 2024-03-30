@@ -17,7 +17,10 @@ Route::get('/setWebhook', function () {
     $url = 'https://103.75.199.54/api/telegram/webhook';
     $response = Telegram::setWebhook([
         'url' => $url,
-        'allowed_updates' => ['message', "edited_channel_post", "callback_query","chat_member","message_reaction","message_reaction_count","edited_message","my_chat_member","chat_member"]]);
+        'allowed_updates' => ['message', "edited_channel_post", "callback_query","chat_member","message_reaction","message_reaction_count","edited_message","my_chat_member","chat_member"],
+        'encoding' => 'UTF-8',
+    ]);
+
     echo $url;
     return $response == true ? 'Webhook URL set!' : 'Failed to set webhook URL!';
 });
