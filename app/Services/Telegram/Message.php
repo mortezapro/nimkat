@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\Telegram;
 
+use App\Services\Message\MessageService;
 use App\Services\User\UserService;
 use Illuminate\Support\Facades\App;
 use Telegram\Bot\Objects\Update as UpdateObject;
@@ -9,6 +10,7 @@ class Message implements TelegramInterface {
 
     protected UpdateObject $update;
     protected UserService $userService;
+    protected MessageService $messageService;
     public function __construct(UpdateObject $update)
     {
         $this->update = $update;
@@ -34,7 +36,7 @@ class Message implements TelegramInterface {
             $this->userService->store($userData);
         }
 
-        $this->userService->store($messageData);
+        $this->messageService->store($messageData);
 
     }
 }
