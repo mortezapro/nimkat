@@ -10,6 +10,11 @@ class BaseService implements BaseServiceInterface {
         return $this->model->create($data);
     }
 
+    public function firstOrCreate(array $data) :Model
+    {
+        return $this->model->firstOrCreate($data);
+    }
+
     public function update(array $data, int $id) :bool
     {
         return $this->model->where("id",$id)->update($data);
