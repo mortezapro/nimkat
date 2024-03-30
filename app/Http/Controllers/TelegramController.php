@@ -32,9 +32,13 @@ class TelegramController extends Controller
         $update = $bot->getWebhookUpdate();
         if (property_exists($update, 'edited_message')) {
             Log::info("edit-message");
+        } else {
+            Log::info("no-edit-message");
         }
         if (property_exists($update, 'message')) {
             Log::info("message");
+        } else {
+            Log::info("no-message");
         }
 //        Log::info($update);
 
