@@ -4,6 +4,7 @@ namespace App\Services\Telegram;
 use App\Services\Message\MessageService;
 use App\Services\User\UserService;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Objects\Update as UpdateObject;
 
 class Message implements TelegramInterface {
@@ -32,6 +33,7 @@ class Message implements TelegramInterface {
             "chat_id"   => $this->update->getChat()->get("id"),
             "text"      => $this->update->message->text,
         ];
+        Log::info($this->userService->count( ["id" => $this->update->message->from->id]) == 0));
         if($this->userService->count( ["id" => $this->update->message->from->id]) == 0){
             $this->userService->store($userData);
         }
