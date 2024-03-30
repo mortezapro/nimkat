@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string("reaction");
             $table->timestamps();
 
-//            $table->foreign("user_id")->references("id")->on("users");
-//            $table->foreign("message_id")->references("id")->on("messages");
+            $table->foreign("user_id")->references("id")->on("users");
+            $table->foreign("message_id")->references("id")->on("messages");
         });
     }
 
