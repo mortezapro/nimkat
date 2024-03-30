@@ -16,6 +16,7 @@ class Message implements TelegramInterface {
     {
         $this->update = $update;
         $this->userService = App::make(UserService::class);
+        $this->messageService = App::make(messageService::class);
     }
 
     public function handle()
