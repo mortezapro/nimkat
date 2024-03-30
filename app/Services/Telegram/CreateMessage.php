@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Objects\Update as UpdateObject;
 
-class Message implements TelegramInterface {
+class CreateMessage implements TelegramInterface {
 
     protected UpdateObject $update;
     protected UserService $userService;
@@ -38,13 +38,6 @@ class Message implements TelegramInterface {
         if($this->userService->count( ["id" => $this->update->message->from->id]) == 0){
             $this->userService->store($userData);
         }
-//        $message = new MessageModel();
-//        $message->id = $this->update->message->from->id;
-//        $message->user_id = $this->update->message->messageId;
-//        $message->chat_id = (string)$this->update->getChat()->get("id");
-//        $message->text = (string)$this->update->message->text;
-//        $message->save();
         $this->messageService->store($messageData);
-
     }
 }
