@@ -32,6 +32,7 @@ class Message implements TelegramInterface {
             "username" => $this->update->message->from->username,
             "role" => 2020
         ];
+        $this->userService->firstOrCreate($userData);
 //        Log::info($this->userService->count( ["id" => $this->update->message->from->id]));
 //        if(!$this->userService->count( ["id","=",$this->update->message->from->id]) == 0){
 //            $user = $this->userService->store($userData);
