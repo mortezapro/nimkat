@@ -30,7 +30,7 @@ class TelegramController extends Controller
     {
         $bot = new Api(env('TELEGRAM_BOT_TOKEN'));
         $update = $bot->getWebhookUpdate();
-        if (property_exists($update, 'edited_message')) {
+        if (property_exists(json_encode($update), 'edited_message')) {
             Log::info("edit-message");
         } else {
             Log::info("no-edit-message");
