@@ -31,11 +31,11 @@ class TelegramController extends Controller
         $action = "";
         $bot = new Api(env('TELEGRAM_BOT_TOKEN'));
         $update = $bot->getWebhookUpdate();
-        Log::info(json_decode($update));
-        if (property_exists(json_decode($update), 'edited_message')) {
+        Log::info($update->message);
+        if (isset($update->message)) {
             $action = "CreateMessage";
         }
-        if (property_exists(json_decode($update), 'message')) {
+        if (isset($update->edit_message)){
             $action = "EditMessage";
         }
         Log::info($action);
