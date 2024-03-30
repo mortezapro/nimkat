@@ -4,6 +4,7 @@ namespace App\Services\User;
 use App\Models\User;
 use App\Services\Base\BaseService;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class UserService extends  BaseService  {
     protected $model;
@@ -19,6 +20,7 @@ class UserService extends  BaseService  {
 //        return Cache::remember('users.check.' . $id, 60*60*2, function () use ($id) {
 //            return $this->model->where("id","=",$id)->exists();
 //        });
+        Log::info($this->model->where("id","=",$id)->exists());
         return $this->model->where("id","=",$id)->exists();
     }
 }

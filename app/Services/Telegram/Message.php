@@ -35,9 +35,9 @@ class Message implements TelegramInterface {
 
         if(!$this->userService->exist( $this->update->message->from->id )){
 //            $user = $this->userService->store($userData);
-            Log::info("exist");
-        } else {
             Log::info("no exist");
+        } else {
+            Log::info("exist");
         }
 
     }
