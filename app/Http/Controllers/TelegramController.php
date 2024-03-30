@@ -31,6 +31,7 @@ class TelegramController extends Controller
         $action = "";
         $bot = new Api(env('TELEGRAM_BOT_TOKEN'));
         $update = $bot->getWebhookUpdate();
+        Log::info(json_decode($update));
         if (property_exists(json_decode($update), 'edited_message')) {
             $action = "CreateMessage";
         }
