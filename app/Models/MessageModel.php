@@ -11,7 +11,7 @@ class MessageModel extends Model
     protected $table = "messages";
     protected $primaryKey = ["id"];
     protected $fillable = [
-        "chat_id","user_id","text"
+        "id","chat_id","user_id","text"
     ];
 
     public function user()
