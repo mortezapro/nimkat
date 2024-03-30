@@ -4,7 +4,7 @@ namespace App\Services\Telegram;
 class TelegramService{
     protected $update;
     protected $action;
-    public function __construct($update,array $action)
+    public function __construct($update,string $action)
     {
         $this->update = $update;
         $this->action = $action;
@@ -12,16 +12,10 @@ class TelegramService{
 
     public function handle()
     {
-        foreach ($this->action as $value) {
-            $normalizedName = ucfirst($value);
-            $namespace = 'App\Services\Telegram';
-            $class = $namespace . "\\{$normalizedName}";
+        $normalizedName = ucfirst($this->action);
+        $namespace = 'App\Services\Telegram';
+        $class = $namespace . "\\$normalizedName";
+        (new $class($this->update))->handle();
 
-            if (! class_exists($class)) {
-                continue;
-            }
-
-            (new $class($this->update))->handle();
-        }
     }
 }

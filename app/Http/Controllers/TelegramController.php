@@ -28,23 +28,20 @@ class TelegramController extends Controller
     }
     public function handleWebhook(Request $request)
     {
+        $action = "";
         $bot = new Api(env('TELEGRAM_BOT_TOKEN'));
         $update = $bot->getWebhookUpdate();
-        if (property_exists(json_encode($update), 'edited_message')) {
+        if (property_exists(json_decode($update), 'edited_message')) {
+            $action = "CreateMessage";
             Log::info("edit-message");
-        } else {
-            Log::info("no-edit-message");
         }
-        if (property_exists($update, 'message')) {
-            Log::info("message");
-        } else {
-            Log::info("no-message");
+        if (property_exists(json_decode($update), 'message')) {
+            $action = "EditMessage";
         }
 //        Log::info($update);
 
-        $action = ["CreateMessage","createReaction"];
-//        $telegram = new TelegramService($update,$action);
-//        $telegram->handle();
+        $telegram = new TelegramService($update,$action);
+        $telegram->handle();
 //	    Log::info($update->message_reaction);
 //        if (isset($update->message)) {
 //		    Log::info("Message: ".$update->message->text);
