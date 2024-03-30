@@ -30,16 +30,11 @@ class Message implements TelegramInterface {
             "chat_id"   => $this->update->getChat()->get("id"),
             "text"      => $this->update->message->text,
         ];
-        $this->userService->firstOrCreate($userData);
-        $this->userService->store($messageData);
+        if(!$this->userService->count( ["id","=",$this->update->message->from->id]) == 0){
+            $this->userService->store($userData);
+        }
 
-//        Log::info($this->userService->count( ["id" => $this->update->message->from->id]));
-//        if(!$this->userService->count( ["id","=",$this->update->message->from->id]) == 0){
-//            $user = $this->userService->store($userData);
-//            Log::info("no exist");
-//        } else {
-//            Log::info("exist");
-//        }
+        $this->userService->store($messageData);
 
     }
 }
