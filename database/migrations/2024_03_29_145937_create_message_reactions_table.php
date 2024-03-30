@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('message_reactions', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger("user_id")->unsigned();
-            $table->bigInteger("message_id")->unsigned();
+            $table->bigInteger("user_id");
+            $table->bigInteger("message_id");
             $table->string("reaction");
             $table->timestamps();
 
