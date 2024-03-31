@@ -24,5 +24,6 @@ class EditMessage implements TelegramInterface {
             "text"      => (string)$this->update->editedMessage->text,
         ];
         $this->messageService->update($messageData,$this->update->editedMessage->messageId);
+        Log::info("edit message");
     }
 }

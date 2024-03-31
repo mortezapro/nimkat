@@ -40,6 +40,6 @@ class CreateMessage implements TelegramInterface {
             Log::info("create message");
         }
         $this->messageService->store($messageData);
-        Log::info("update emoji");
+        Log::info("create message");
     }
 }
