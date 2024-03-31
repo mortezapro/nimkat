@@ -30,6 +30,7 @@ class MessageReaction implements TelegramInterface{
 
         if(count($newReaction) == 0){
             Log::info("creating emoji");
+            Log::info($this->update);
             $emoji = $oldReaction[0]["emoji"];
             //create
             $data = [
@@ -43,6 +44,7 @@ class MessageReaction implements TelegramInterface{
 
         } else {
             Log::info("updating emoji");
+            Log::info($this->update);
             $emoji = $newReaction[0]["emoji"];
             $data = [
                 "reaction" => $emoji,
