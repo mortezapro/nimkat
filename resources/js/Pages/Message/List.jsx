@@ -18,7 +18,7 @@ export default function List({ auth,messages }) {
     data.columns = [
         // { label: "#", accessor: "id", field:"id"},
         { label: "کاربر", accessor: "fullName", field:"user_id"},
-        { label: "گروه", accessor: "chatName", field:"chat_id"},
+        { label: "گروه", accessor: "chat", field:"chat_id"},
         { label: "متن", accessor: "text", field:"text" },
         { label: "تاریخ", accessor: "created_at", field:"created_at" },
     ];
