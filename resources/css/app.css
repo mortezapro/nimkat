@@ -45,6 +45,6 @@ table svg{
 .spin{
     animation: spin 2s infinite linear;
 }
-table th{
+table th,table td{
     max-width:250px;
 }
