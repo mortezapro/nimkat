@@ -10,6 +10,7 @@ export default function TableBody (props) {
                     <td className="px-6 py-3">{key+1}</td>
                     {columns.map(({ accessor }) => {
                         let tData = data[accessor] ? data[accessor] : "——";
+                        tData = tData.length > 100 ? tData.slice(0, 100) + "..." : tData;
                         return (
                             <td className="px-6 py-3 font-medium" key={accessor}>
                                 {tData}
