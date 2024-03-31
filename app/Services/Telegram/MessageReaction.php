@@ -30,6 +30,6 @@ class MessageReaction implements TelegramInterface{
         Log::info("message id: ".$messageId);
         Log::info("user id: ".$userId);
         Log::info("old reaction: ".$oldReaction);
-        Log::info("new reaction: ".$newReaction);
+        Log::info("new reaction: ".$newReaction[0]);
     }
 }
