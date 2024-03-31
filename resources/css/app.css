@@ -2,14 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 .rtl{
-    direction: rtl;
+    direction: rtl!important;
 }
 @font-face {
     font-family: "iran-yekan";
     src: url("https://103.75.199.54/fonts/iranyekan.woff2");
 }
 
-body{
+body,.font-sans{
     font-family: "iran-yekan", serif;
 }
 :root {
