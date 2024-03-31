@@ -11,7 +11,7 @@ class MessageController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->perPage ?: 10;
-        $questions = MessageModel::when($request->has("column"),function ($q) use($request){
+        $messages = MessageModel::when($request->has("column"),function ($q) use($request){
             return $q->orderBy($request->column,$request->orderBy);
         })->when($request->has("search"),function ($q) use ($request){
             $search = trim($request->search);
@@ -22,8 +22,8 @@ class MessageController extends Controller
         })->latest()->paginate($perPage)->withQueryString();
 
         if($request->has("column") || $request->has("search") || $request->has("page")){
-            return $questions;
+            return $messages;
         }
-        return Inertia::render('Message/List', compact("questions"));
+        return Inertia::render('Message/List', compact("messages"));
     }
 }
