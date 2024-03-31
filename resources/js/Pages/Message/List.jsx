@@ -101,7 +101,7 @@ export default function List({ auth,messages }) {
                     </div>
 
                     <div className="relative bg-white overflow-x-auto shadow-sm sm:rounded-lg">
-                        <DataTable data={data} handleSorting={handleSorting} deleteEntity={deleteEntity} entity={entity} />
+                        <DataTable data={data} handleSorting={handleSorting} entity={entity} />
                         <Pagination class="mt-6" links={data.links} setData={setData} setIsLoading={setIsLoading}/>
                     </div>
                 </div>
