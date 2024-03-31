@@ -32,16 +32,17 @@ class MessageReaction implements TelegramInterface{
         $data = [
             "reaction" => $emoji
         ];
-        if(count($oldReaction) == 0){
-            $data = [
-                "user_id" => $userId,
-                "message_id" => $messageId,
-                "reaction" => $emoji,
-            ];
-            $this->messageReactionService->store($data);
-
-        } else {
-            $this->messageReactionService->update($data,$messageId);
-        }
+//        if(count($oldReaction) == 0){
+//            $data = [
+//                "user_id" => $userId,
+//                "message_id" => $messageId,
+//                "reaction" => $emoji,
+//            ];
+//            $this->messageReactionService->store($data);
+//
+//        } else {
+//            $this->messageReactionService->update($data,$messageId);
+//        }
+        Log::info("morteza");
     }
 }
