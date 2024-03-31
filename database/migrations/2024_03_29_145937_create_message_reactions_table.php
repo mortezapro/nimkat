@@ -20,6 +20,7 @@ return new class extends Migration
 
             $table->foreign("user_id")->references("id")->on("users");
             $table->foreign("message_id")->references("id")->on("messages");
+            $table->unique(["user_id","message_id"],"user_msg_reactions_index");
         });
     }
 
