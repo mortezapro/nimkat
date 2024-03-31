@@ -31,6 +31,7 @@ class TelegramController extends Controller
         $action = "";
         $bot = new Api(env('TELEGRAM_BOT_TOKEN'));
         $update = $bot->getWebhookUpdate();
+        Log::info("log from controller: update: ". $update);
         if (isset($update->message)) {
             $action = "CreateMessage";
         } elseif (isset($update->edited_message)){
