@@ -1,3 +1,47 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.rtl{
+    direction: rtl;
+}
+@font-face {
+    font-family: "iran-yekan";
+    src: url("https://103.75.199.54/fonts/iranyekan.woff2");
+}
+
+body{
+    font-family: "iran-yekan", serif;
+}
+:root {
+    --toastify-font-family: "iran-yekan"!important;
+}
+select {
+    background-position: left 0.5rem center;
+    padding-left: 2.5rem;
+}
+.min-w-4{
+    min-width: 4rem;
+}
+.min-w-8{
+    min-width: 8rem;
+}
+.min-w-10{
+    min-width: 10rem;
+}
+.min-w-12{
+    min-width: 12rem;
+}
+table svg{
+    display: inline-block;
+}
+@keyframes spin {
+    from {
+        transform: scale(1) rotate(0deg);
+    }
+    to {
+        transform: scale(1) rotate(360deg);
+    }
+}
+.spin{
+    animation: spin 2s infinite linear;
+}

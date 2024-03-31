@@ -14,7 +14,6 @@ export default function List({ auth,messages }) {
     const [data,setData] = useState(messages);
     const [filterParams,setFilterParams] = useState({search:"",sortField:"",orderBy:"",perPage:10});
     const [isLoading,setIsLoading] = useState(false);
-    console.log(data)
     data.columns = [
         // { label: "#", accessor: "id", field:"id"},
         { label: "کاربر", accessor: "fullName", field:"user_id"},
