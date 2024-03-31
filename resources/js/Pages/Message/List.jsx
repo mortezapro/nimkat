@@ -69,13 +69,6 @@ export default function List({ auth,messages }) {
             setData(response.data);
         });
     }
-    const deleteEntity = async (e) => {
-        if (confirm("آیا واقعا می‌خواهید سوال را حذف کنید؟")) {
-            await axios.delete(route(entity+".destroy",e.target.getAttribute("data-id")));
-            await fetchAndSetData(filterParams);
-            notify("عملیات با موفقیت انجام شد")
-        }
-    }
 
     const notify = (message) => {
         toast.success(message)
@@ -84,10 +77,9 @@ export default function List({ auth,messages }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="inline-block font-semibold text-xl text-gray-800 leading-tight me-3">لیست سوالات</h2>}
-            button={<Link href={route(entity+".create")} className="inline-block me-2 bg-transparent hover:bg-blue-500 text-blue-500 text-sm hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">ایجاد سوال جدید</Link>}
+            header={<h2 className="inline-block font-semibold text-xl text-gray-800 leading-tight me-3">لیست پیام‌ها</h2>}
         >
-            <Head title="Dashboard" />
+            <Head title="لیست پیام‌ها | پنل نیمکت" />
 
             <div className="py-5">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
