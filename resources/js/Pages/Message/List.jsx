@@ -20,7 +20,7 @@ export default function List({ auth,messages }) {
         { label: "کاربر", accessor: "fullName", field:"user_id"},
         { label: "گروه", accessor: "chat", field:"chat_id"},
         { label: "متن", accessor: "text", field:"text" },
-        { label: "تاریخ", accessor: "created_at", field:"created_at" },
+        { label: "تاریخ", accessor: "date", field:"created_at" },
     ];
 
     const searchValueRef = useRef(null);
