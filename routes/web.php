@@ -1,34 +1,27 @@
 <?php
 
-use App\Http\Controllers\TelegramController;
-use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Telegram\Bot\Laravel\Facades\Telegram;
+use Inertia\Inertia;
 
 Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::post('v1/telegram/webhook', [TelegramController::class,"handleWebhook"]);
-
-Route::get('/setWebhook', function () {
-    $url = 'https://103.75.199.54/v1/telegram/webhook';
-    $response = Telegram::setWebhook([
-        'url' => $url,
-        'allowed_updates' => ['message', "callback_query","chat_member","message_reaction","message_reaction_count","edited_message"],
-        'encoding' => 'UTF-8',
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
     ]);
-
-    echo $url;
-    return $response == true ? 'Webhook URL set!' : 'Failed to set webhook URL!';
 });
 
-Route::get('/removeWebhook', function () {
-    $response = Telegram::removeWebhook();
-    return $response == true ? 'Webhook URL removed!' : 'Failed to remove webhook URL!';
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/update', function () {
-    $response = Telegram::getUpdates();
-    dd($response);
-});
+require __DIR__.'/auth.php';
