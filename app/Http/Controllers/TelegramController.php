@@ -38,7 +38,7 @@ class TelegramController extends Controller
         } elseif (isset($update->message_reaction)){
             $action = "MessageReaction";
         }
-        Log::info("action:" .$action);
+        Log::info($update);
         if($action != ""){
             $telegram = new TelegramService($update,$action);
             $telegram->handle();
