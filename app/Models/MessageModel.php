@@ -27,7 +27,7 @@ class MessageModel extends Model
     }
     public function getDateAttribute()
     {
-        return Jalalian::forge($this->created_at)->format("%d - %m - %d H:i");
+        return Jalalian::forge($this->created_at)->format("%d - %m - %Y H:i");
     }
     public function getChatAttribute()
     {
