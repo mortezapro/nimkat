@@ -20,10 +20,11 @@ class EditMessage implements TelegramInterface {
 
     public function handle()
     {
+        Log::info("updating message");
         $messageData = [
             "text"      => (string)$this->update->editedMessage->text,
         ];
         $this->messageService->update($messageData,$this->update->editedMessage->messageId);
-        Log::info("edit message");
+        Log::info("message updated");
     }
 }

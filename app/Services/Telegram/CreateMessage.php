@@ -22,6 +22,7 @@ class CreateMessage implements TelegramInterface {
 
     public function handle()
     {
+        Log::info("creating message");
         $userData = [
             "id" => $this->update->message->from->id,
             "first_name" => $this->update->message->from->firstName,
@@ -40,6 +41,6 @@ class CreateMessage implements TelegramInterface {
             Log::info("create message");
         }
         $this->messageService->store($messageData);
-        Log::info("create message");
+        Log::info("message created");
     }
 }
