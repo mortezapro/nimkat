@@ -28,7 +28,7 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <GuestLayout>
-            <Head title="Log in" />
+            <Head title="ورود به پنل نمیکت" />
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 

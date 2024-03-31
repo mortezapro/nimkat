@@ -78,7 +78,7 @@ export default function List({ auth,messages }) {
             user={auth.user}
             header={<h2 className="inline-block font-semibold text-xl text-gray-800 leading-tight me-3">لیست پیام‌ها</h2>}
         >
-            <Head title="لیست پیام‌ها | پنل نیمکت" />
+            <Head title="لیست پیام‌ها" />
 
             <div className="py-5">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
