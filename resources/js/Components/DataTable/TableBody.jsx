@@ -7,7 +7,7 @@ export default function TableBody (props) {
         {data.map((data,key) => {
             return (
                 <tr className="border-b dark:border-neutral-500" key={data.id}>
-                    <td className="whitespace-nowrap px-6 py-3">{key+1}</td>
+                    <td className="px-6 py-3">{key+1}</td>
                     {columns.map(({ accessor }) => {
                         let tData = data[accessor] ? data[accessor] : "——";
                         return (

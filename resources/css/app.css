@@ -46,7 +46,6 @@ table svg{
     animation: spin 2s infinite linear;
 }
 table th,table td{
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 250px;
