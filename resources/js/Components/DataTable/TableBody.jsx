@@ -11,7 +11,7 @@ export default function TableBody (props) {
                     {columns.map(({ accessor }) => {
                         let tData = data[accessor] ? data[accessor] : "——";
                         return (
-                            <td className="whitespace-nowrap px-6 py-3 font-medium" key={accessor}>
+                            <td className="px-6 py-3 font-medium" key={accessor}>
                                 {tData}
                             </td>
                         )
