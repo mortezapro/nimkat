@@ -26,10 +26,20 @@ class MessageReaction implements TelegramInterface{
         $messageId = $this->update->message_reaction->message_id;
         $userId = $this->update->message_reaction->user->id;
         $oldReaction = $this->update->message_reaction->old_reaction;
-        $newReaction = $this->update->message_reaction->new_reaction;
-        Log::info("message id: ".$messageId);
-        Log::info("user id: ".$userId);
-        Log::info("old reaction: ".$oldReaction);
-        Log::info("new reaction: ".$newReaction[0]["emoji"]);
+        $newReaction = $this->update->message_reaction->new_reaction[0]["emoji"];
+        $data = [
+            "reaction" => $newReaction
+        ];
+
+        if(count($oldReaction) == 0){
+            $data = [
+                "user_id" => $userId,
+                "message_id" => $messageId,
+                "reaction" => $newReaction,
+            ];
+            $this->messageReactionService->store($data,$messageId);
+        } else {
+            $this->messageReactionService->update($data,$messageId);
+        }
     }
 }
