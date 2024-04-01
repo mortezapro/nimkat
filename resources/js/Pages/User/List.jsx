@@ -9,17 +9,18 @@ import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 
-export default function List({ auth,messages }) {
-    const entity = "messages"
-    const [data,setData] = useState(messages);
+export default function List({ auth,users }) {
+    const entity = "users"
+    const [data,setData] = useState(users);
     const [filterParams,setFilterParams] = useState({search:"",sortField:"",orderBy:"",perPage:10});
     const [isLoading,setIsLoading] = useState(false);
     data.columns = [
         // { label: "#", accessor: "id", field:"id"},
-        { label: "کاربر", accessor: "fullName", field:"user_id"},
-        { label: "گروه", accessor: "chat", field:"chat_id"},
-        { label: "متن", accessor: "text", field:"text" },
-        { label: "تاریخ", accessor: "date", field:"created_at" },
+        { label: "نام", accessor: "first_name", field:"first_name"},
+        { label: "نام", accessor: "last_name", field:"last_name"},
+        { label: "نام کاربری", accessor: "username", field:"username"},
+        { label: "نقش", accessor: "persianRole", field:"role" },
+        { label: "تاریخ ثبت", accessor: "date", field:"created_at" },
     ];
 
     const searchValueRef = useRef(null);

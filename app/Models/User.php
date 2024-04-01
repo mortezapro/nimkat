@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Morilog\Jalali\Jalalian;
 
 class User extends Authenticatable
 {
@@ -36,6 +37,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $appends = ["date","persianRole"];
     /**
      * Get the attributes that should be cast.
      *
@@ -56,5 +58,13 @@ class User extends Authenticatable
     public function reactions()
     {
         return $this->hasMany(MessageReactionModel::class,"message_id");
+    }
+    public function getPersianRoleAttribute()
+    {
+        if($this->role == 2020){
+            return "کاربر عادی";
+        } elseif($this->role == 2025) {
+            return "مدیر سیستم";
+        }
     }
 }
