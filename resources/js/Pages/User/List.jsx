@@ -17,7 +17,7 @@ export default function List({ auth,users }) {
     data.columns = [
         // { label: "#", accessor: "id", field:"id"},
         { label: "نام", accessor: "first_name", field:"first_name"},
-        { label: "نام", accessor: "last_name", field:"last_name"},
+        { label: "نام خانوادگی", accessor: "last_name", field:"last_name"},
         { label: "نام کاربری", accessor: "username", field:"username"},
         { label: "نقش", accessor: "persianRole", field:"role" },
         { label: "تاریخ ثبت", accessor: "date", field:"created_at" },
