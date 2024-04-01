@@ -67,4 +67,8 @@ class User extends Authenticatable
             return "مدیر سیستم";
         }
     }
+    public function getDateAttribute()
+    {
+        return Jalalian::forge($this->created_at)->format("%d - %m - %Y H:i");
+    }
 }
