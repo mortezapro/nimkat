@@ -9,7 +9,7 @@ class MessageReactionModel extends Model
 {
     use HasFactory;
     protected $table = "message_reactions";
-    protected $primaryKey = ["id"];
+    protected $primaryKey = "id";
     protected $fillable = [
         "user_id","message_id","reaction"
     ];

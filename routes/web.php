@@ -4,6 +4,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TelegramController;
 use App\Http\Controllers\UserController;
+use App\Models\MessageReactionModel;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -56,8 +57,4 @@ Route::get('/removeWebhook', function () {
 Route::get('/update', function () {
     $response = Telegram::getUpdates();
     dd($response);
-});
-
-
-Route::get('/morteza', function () {
 });
