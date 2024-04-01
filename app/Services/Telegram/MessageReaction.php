@@ -28,23 +28,17 @@ class MessageReaction implements TelegramInterface{
         $oldReaction = $this->update->message_reaction->old_reaction;
         $newReaction = $this->update->message_reaction->new_reaction;
         Log::info("creating emoji");
-        if (isset($this->update->message_reaction)) {
-            $reaction = $this->update->message_reaction;
-            if (isset($reaction->new_reaction) && !empty($reaction->new_reaction)) {
-//                $emoji = $reaction->new_reaction[0]["emoji"];
-//                Log::info($emoji);;
-                //create
 
-                $data = [
-                    "user_id" => $userId,
-                    "message_id" => $messageId,
-                    "reaction" => $newReaction,
-                ];
-                $this->messageReactionService->store($data);
-                    Log::info("emoji created");
-                }
+        $data = [
+            "user_id" => $userId,
+            "message_id" => $messageId,
+            "reaction" => "test",
+        ];
+        $this->messageReactionService->store($data);
+        Log::info("emoji created");
 
-        }
+
+
 //        else {
 //            Log::info("removing emoji");
 //            $messageReaction = $this->messageReactionService->find($messageId);
