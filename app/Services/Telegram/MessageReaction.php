@@ -32,6 +32,7 @@ class MessageReaction implements TelegramInterface{
             $reaction = $this->update->message_reaction;
             if (isset($reaction->new_reaction) && !empty($reaction->new_reaction)) {
                 if (is_array($newReaction[0])) {
+                    Log::info("morteza");
                     $emoji = $newReaction[0]["emoji"];
                 } elseif (is_object($newReaction[0])) {
                     $emoji = $newReaction[0]->emoji;
