@@ -35,11 +35,10 @@ class MessageReaction implements TelegramInterface{
 //                Log::info($emoji);;
                 //create
 
-                $emoji = json_encode($newReaction);
                 $data = [
                     "user_id" => $userId,
                     "message_id" => $messageId,
-                    "reaction" => $emoji,
+                    "reaction" => $newReaction,
                 ];
                 $this->messageReactionService->store($data);
                     Log::info("emoji created");
