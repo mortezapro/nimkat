@@ -27,31 +27,28 @@ class MessageReaction implements TelegramInterface{
         $userId = $this->update->message_reaction->user->id;
         $oldReaction = $this->update->message_reaction->old_reaction;
         $newReaction = $this->update->message_reaction->new_reaction;
-        Log::info("newReaction".$newReaction);
-        if(count($newReaction) != 0){
-            Log::info("creating emoji");
-            Log::info($this->update);
-            $array = json_decode($this->update,true);
-            Log::info("emoji: ".$array['message_reaction']["new_reaction"][0]);
-            $emojiReaction = $array['message_reaction']["new_reaction"][0]->emoji;
-            Log::info("emoji: ".$emojiReaction);
-//            Log::info("reaction-obj: ".$newReaction);
-//            $emoji = $newReaction[0]["emoji"];
-            //create
-//            $data = [
-//                "user_id" => $userId,
-//                "message_id" => $messageId,
-//                "reaction" => $emoji,
-//            ];
-//
-//            $this->messageReactionService->store($data);
-            Log::info("emoji created");
+        Log::info("creating emoji");
+        if (isset($this->update->message_reaction)) {
+            $reaction = $this->update->message_reaction;
+            if (isset($reaction->new_reaction) && !empty($reaction->new_reaction)) {
+                $emoji = $reaction->new_reaction[0]->emoji;
+                Log::info($emoji);;
+                //create
+                $data = [
+                    "user_id" => $userId,
+                    "message_id" => $messageId,
+                    "reaction" => $emoji,
+                ];
+                $this->messageReactionService->store($data);
+                    Log::info("emoji created");
+                }
 
-        } else {
-            Log::info("removing emoji");
+        }
+//        else {
+//            Log::info("removing emoji");
 //            $messageReaction = $this->messageReactionService->find($messageId);
 //            $this->messageReactionService->destroy($messageReaction);
-            Log::info("emoji removed");
-        }
+//            Log::info("emoji removed");
+//        }
     }
 }
