@@ -30,8 +30,9 @@ class MessageReaction implements TelegramInterface{
         Log::info("newReaction".$newReaction);
         if(count($newReaction) != 0){
             Log::info("creating emoji");
-            Log::info($this->update);
-            $newReaction = json_decode($this->update);
+//            Log::info($this->update);
+            $object = json_decode($this->update);
+            Log::info("decode: ".$object);
 //            Log::info("reaction-obj: ".$newReaction);
 //            $emoji = $newReaction[0]["emoji"];
             //create
@@ -46,8 +47,8 @@ class MessageReaction implements TelegramInterface{
 
         } else {
             Log::info("removing emoji");
-            $messageReaction = $this->messageReactionService->find($messageId);
-            $this->messageReactionService->destroy($messageReaction);
+//            $messageReaction = $this->messageReactionService->find($messageId);
+//            $this->messageReactionService->destroy($messageReaction);
             Log::info("emoji removed");
         }
     }
