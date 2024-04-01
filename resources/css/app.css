@@ -50,3 +50,6 @@ table th,table td{
     text-overflow: ellipsis;
     max-width: 250px;
 }
+.menu-link a:not(:first-child) {
+    margin-right: 1em;
+}
