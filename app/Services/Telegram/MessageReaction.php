@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\Telegram;
 
+use App\Models\MessageReactionModel;
 use App\Services\Message\MessageService;
 use App\Services\MessageReaction\MessageReactionService;
 use App\Services\User\UserService;
@@ -40,7 +41,8 @@ class MessageReaction implements TelegramInterface{
                     "message_id" => $messageId,
                     "reaction" => $emoji,
                 ];
-                $this->messageReactionService->store($data);
+                MessageReactionModel::firstOrCreate($data);
+//                $this->messageReactionService->store($data);
                     Log::info("emoji created");
                 }
 
