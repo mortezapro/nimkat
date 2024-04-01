@@ -57,3 +57,7 @@ Route::get('/update', function () {
     $response = Telegram::getUpdates();
     dd($response);
 });
+
+
+Route::get('/morteza', function () {
+});
