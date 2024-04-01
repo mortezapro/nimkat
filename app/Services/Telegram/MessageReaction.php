@@ -29,14 +29,11 @@ class MessageReaction implements TelegramInterface{
         $newReaction = $this->update->message_reaction->new_reaction;
         Log::info("creating emoji");
         if (isset($this->update->message_reaction)) {
+            $emoji="default";
             $reaction = $this->update->message_reaction;
             if (isset($reaction->new_reaction) && !empty($reaction->new_reaction)) {
                 if (count($newReaction) > 0 && is_array($newReaction[0])) {
                     $emoji = $newReaction[0]["emoji"];
-                } elseif (is_object($newReaction[0])) {
-                    $emoji = $newReaction[0]->emoji;
-                } else {
-                    $emoji = null;
                 }
                 $data = [
                     "user_id" => $userId,
