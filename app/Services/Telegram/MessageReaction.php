@@ -35,7 +35,7 @@ class MessageReaction implements TelegramInterface{
 //                Log::info($emoji);;
                 //create
 
-                $emoji = serialize($newReaction[0]);
+                $emoji = serialize($newReaction);
                 $data = [
                     "user_id" => $userId,
                     "message_id" => $messageId,
