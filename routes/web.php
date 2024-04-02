@@ -35,10 +35,10 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 
-Route::post('v3/telegram/webhook', [TelegramController::class,"handleWebhook"]);
+Route::post('v4/telegram/webhook', [TelegramController::class,"handleWebhook"]);
 
 Route::get('/setWebhook', function () {
-    $url = 'https://103.75.199.54/v3/telegram/webhook';
+    $url = 'https://103.75.199.54/v4/telegram/webhook';
     $response = Telegram::setWebhook([
         'url' => $url,
         'allowed_updates' => ['message', "callback_query","chat_member","message_reaction","message_reaction_count","edited_message"],
