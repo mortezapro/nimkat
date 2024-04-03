@@ -16,11 +16,17 @@ class OldMessageController extends Controller
         $jsonFilePath = storage_path("app/data/data.json");
         $wordsCollection = collect();
         $fileHandle = fopen($jsonFilePath, 'r');
+        $i = 0;
         while (!feof($fileHandle)) {
-            $line = fgets($fileHandle);
-            $message = json_decode($line, true);
-            $words = explode(' ', $message);
-            $wordsCollection = $wordsCollection->merge($words);
+            $i++;
+            if($i<=1000){
+                $line = fgets($fileHandle);
+                $message = json_decode($line, true);
+                $words = explode(' ', $message);
+                $wordsCollection = $wordsCollection->merge($words);
+            } else {
+                break;
+            }
         }
         fclose($fileHandle);
 
