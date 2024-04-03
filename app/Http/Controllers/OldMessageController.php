@@ -15,20 +15,24 @@ class OldMessageController extends Controller
 
         $jsonFilePath = storage_path("app/data/data.json");
         $wordsCollection = collect();
-        $jsonStream = \json_stream($jsonFilePath);
-        $jsonStream->each(function ($message) use (&$wordsCollection) {
-            // اگر متن پیام وجود داشته باشد
+        $fileHandle = fopen($jsonFilePath, 'r');
+        while (!feof($fileHandle)) {
+            $line = fgets($fileHandle);
+            $message = json_decode($line, true);
             if (isset($message['text'])) {
-                // کلمات را جدا کرده و به مجموعه اضافه کنید
                 $words = explode(' ', $message['text']);
                 $wordsCollection = $wordsCollection->merge($words);
             }
-        });
+        }
+        fclose($fileHandle);
+
         $wordCounts = $wordsCollection->countBy();
         $maxOccurrences = $wordCounts->max();
+
         $mostUsedWords = $wordCounts->filter(function ($value) use ($maxOccurrences) {
             return $value === $maxOccurrences;
         })->keys();
+
         echo "بیشترین تکرار: $maxOccurrences\n";
         echo "کلمات: " . $mostUsedWords->implode(', ');
     }
