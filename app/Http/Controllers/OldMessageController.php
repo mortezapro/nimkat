@@ -16,41 +16,61 @@ class OldMessageController extends Controller
         $filePath = storage_path("app/data/data.json");
         $chunkSize = 10000;
         try {
-            $file = fopen($filePath, 'r');
+            $file = File::open($filePath, 'r');
             $wordFrequencyMap = new SplPriorityQueue(); // Use priority queue
             $topWords = [];
+            $isObjectStartFound = false;
+            $currentObject = '';
 
-            while (($line = fgets($file)) !== false) {
-                $data = json_decode($line);
-                dd($data);
-                if (json_last_error() !== JSON_ERROR_NONE) {
-                    throw new \Exception('Invalid JSON data: ' . json_last_error_msg());
+            while (($line = $file->readline()) !== false) {
+                $currentObject .= $line;
+
+                // Check for object start
+                if (!$isObjectStartFound && substr($line, 0, 1) === '{') {
+                    $isObjectStartFound = true;
                 }
-                $messageText = $data->message;
-                $messageText = strtolower($messageText);
-                $messageText = preg_replace('/\W+/', ' ', $messageText);
-                $words = explode(' ', $messageText);
-                foreach ($words as $word) {
-                    if ($wordFrequencyMap->count() < 50) {
-                        // Add new word directly (top 50 not yet reached)
-                        $wordFrequencyMap->insert($word, 1);
-                    } else {
-                        // Check if word exists and update count (if top 50 reached)
-                        if ($wordFrequencyMap->contains($word)) {
-                            $wordFrequencyMap->extract(); // Remove least frequent word
-                            $wordFrequencyMap->insert($word, $wordFrequencyMap->offsetGet($word) + 1);
+
+                // Check for object end
+                if ($isObjectStartFound && substr($line, -1, 1) === '}') {
+                    $data = json_decode($currentObject);
+
+                    if (json_last_error() !== JSON_ERROR_NONE) {
+                        throw new \Exception('Invalid JSON data: ' . json_last_error_msg());
+                    }
+
+                    $messageText = $data->message; // Assuming "message" field holds the text
+
+                    // Preprocess message text (optional)
+                    $messageText = strtolower($messageText);
+                    $messageText = preg_replace('/\W+/', ' ', $messageText); // Remove non-word characters
+
+                    $words = explode(' ', $messageText);
+
+                    foreach ($words as $word) {
+                        if ($wordFrequencyMap->count() < 50) {
+                            // Add new word directly (top 50 not yet reached)
+                            $wordFrequencyMap->insert($word, 1);
+                        } else {
+                            // Check if word exists and update count (if top 50 reached)
+                            if ($wordFrequencyMap->contains($word)) {
+                                $wordFrequencyMap->extract(); // Remove least frequent word
+                                $wordFrequencyMap->insert($word, $wordFrequencyMap->offsetGet($word) + 1);
+                            }
                         }
                     }
-                }
 
-                // Process data in chunks (optional, for very large files)
-                if ($wordFrequencyMap->count() >= $chunkSize) {
-                    // Extract top words from priority queue and merge with existing results
-                    $topChunkWords = [];
-                    while ($wordFrequencyMap->count() > 0) {
-                        $topChunkWords[] = [$wordFrequencyMap->extract(), $wordFrequencyMap->current()];
+                    // Process data in chunks (optional, for very large files)
+                    if ($wordFrequencyMap->count() >= $chunkSize) {
+                        // Extract top words from priority queue and merge with existing results
+                        $topChunkWords = [];
+                        while ($wordFrequencyMap->count() > 0) {
+                            $topChunkWords[] = [$wordFrequencyMap->extract(), $wordFrequencyMap->current()];
+                        }
+                        $topWords = array_merge($topWords, $topChunkWords);
                     }
-                    $topWords = array_merge($topWords, $topChunkWords);
+
+                    $isObjectStartFound = false; // Reset flag for next object
+                    $currentObject = ''; // Reset current object
                 }
             }
 
