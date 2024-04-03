@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
@@ -21,7 +22,7 @@ class OldMessageController extends Controller
             $redis = Redis::connection();
             $redis->ping(); // Test connection
             echo "Connected to Redis!";
-        } catch ($e) {
+        } catch (Exception $e) {
             echo "Connection error: " . $e->getMessage();
         }
     }
