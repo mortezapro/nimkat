@@ -12,11 +12,8 @@ class OldMessageController extends Controller
 {
     public function index()
     {
-        $data = Cache::get("data");
-        if(!$data){
-            $data = json_decode(file_get_contents(storage_path('app/data/data.json')));
-            Cache::set('data', $data);
-        }
+        dd("s");
+        $data = json_decode(file_get_contents(storage_path('app/data/data.json')));
         $counts = array_count_values(words(implode(' ', $data)));
         arsort($counts);
         $topWords = array_slice($counts, 0, 10);
