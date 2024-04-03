@@ -20,7 +20,7 @@ class OldMessageController extends Controller
             $wordFrequencyMap = new SplPriorityQueue(); // Use priority queue
             $topWords = [];
 
-            while (($line = $file->readline()) !== false) {
+            while (($line = fgets($file)) !== false) {
                 $data = json_decode($line);
                 if (json_last_error() !== JSON_ERROR_NONE) {
                     throw new \Exception('Invalid JSON data: ' . json_last_error_msg());
