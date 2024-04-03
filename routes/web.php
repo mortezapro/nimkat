@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\OldMessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TelegramController;
 use App\Http\Controllers\UserController;
@@ -28,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get("old-message",[OldMessageController::class,"index"])->name("old-message.index");
     Route::resource("messages",MessageController::class);
     Route::resource("users",UserController::class);
 });
