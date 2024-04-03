@@ -10,5 +10,6 @@ class OldMessageController extends Controller
     public function index()
     {
         $data = Storage::disk('local')->get('data/data.json');
+        dd($data);
     }
 }
