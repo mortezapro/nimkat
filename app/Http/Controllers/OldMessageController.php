@@ -12,13 +12,24 @@ class OldMessageController extends Controller
 {
     public function index()
     {
-        dd("s");
-        $data = json_decode(file_get_contents(storage_path('app/data/data.json')));
-        $counts = array_count_values(words(implode(' ', $data)));
-        arsort($counts);
-        $topWords = array_slice($counts, 0, 10);
-        foreach ($topWords as $word => $count) {
-            echo "$word: $count\n";
-        }
+
+        $jsonFilePath = storage_path("app/data/data.json");
+        $wordsCollection = collect();
+        $jsonStream = \json_stream($jsonFilePath);
+        $jsonStream->each(function ($message) use (&$wordsCollection) {
+            // اگر متن پیام وجود داشته باشد
+            if (isset($message['text'])) {
+                // کلمات را جدا کرده و به مجموعه اضافه کنید
+                $words = explode(' ', $message['text']);
+                $wordsCollection = $wordsCollection->merge($words);
+            }
+        });
+        $wordCounts = $wordsCollection->countBy();
+        $maxOccurrences = $wordCounts->max();
+        $mostUsedWords = $wordCounts->filter(function ($value) use ($maxOccurrences) {
+            return $value === $maxOccurrences;
+        })->keys();
+        echo "بیشترین تکرار: $maxOccurrences\n";
+        echo "کلمات: " . $mostUsedWords->implode(', ');
     }
 }
