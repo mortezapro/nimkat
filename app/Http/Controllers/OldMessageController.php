@@ -10,12 +10,19 @@ class OldMessageController extends Controller
 {
     public function index()
     {
-        $data = Redis::get("data");
-        if(!$data){
-            $data = Storage::disk('local')->get('data/data.json');
-            Redis::set('data', $data);
+//        $data = Redis::get("data");
+//        if(!$data){
+//            $data = Storage::disk('local')->get('data/data.json');
+//            Redis::set('data', $data);
+//        }
+//
+//        dd($data);
+        try {
+            $redis = Redis::connection();
+            $redis->ping(); // Test connection
+            echo "Connected to Redis!";
+        } catch ($e) {
+            echo "Connection error: " . $e->getMessage();
         }
-
-        dd($data);
     }
 }
