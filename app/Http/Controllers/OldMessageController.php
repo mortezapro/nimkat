@@ -14,10 +14,14 @@ class OldMessageController extends Controller
     {
         $data = Cache::get("data");
         if(!$data){
-            $data = Storage::disk('local')->get('data/data.json');
+            $data = json_decode(file_get_contents('data/data.json'));
             Cache::set('data', $data);
         }
-
-        dd($data);
+        $counts = array_count_values(words(implode(' ', $data)));
+        arsort($counts);
+        $topWords = array_slice($counts, 0, 10);
+        foreach ($topWords as $word => $count) {
+            echo "$word: $count\n";
+        }
     }
 }
