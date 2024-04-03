@@ -19,11 +19,8 @@ class OldMessageController extends Controller
         while (!feof($fileHandle)) {
             $line = fgets($fileHandle);
             $message = json_decode($line, true);
-            echo is_array($message) ? "true" : "false";
-            if (isset($message['text'])) {
-                $words = explode(' ', $message['text']);
-                $wordsCollection = $wordsCollection->merge($words);
-            }
+            $words = explode(' ', $message);
+            $wordsCollection = $wordsCollection->merge($words);
         }
         fclose($fileHandle);
 
