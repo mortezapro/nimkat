@@ -23,6 +23,7 @@ class OldMessageController extends Controller
                 $line = fgets($fileHandle);
                 $message = json_decode($line, true);
                 $words = explode(' ', $message);
+                echo $words[0]."<br>";
                 $wordsCollection = $wordsCollection->merge($words);
             } else {
                 break;
