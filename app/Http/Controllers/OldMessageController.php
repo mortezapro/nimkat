@@ -18,6 +18,7 @@ class OldMessageController extends Controller
         if ($handle) {
             while (($line = fgets($handle)) !== false) {
                 $data = json_decode($line, true);
+                dd($data);
                 foreach ($data['messages'] as $message) {
                     $text = strtolower($message['text']);
                     $text = preg_replace("/[^a-zA-Z\s]/", "", $text); // Remove punctuation
