@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 use SplPriorityQueue;
-use Illuminate\Support\Facades\File;
 class OldMessageController extends Controller
 {
     public function index()
@@ -17,25 +16,19 @@ class OldMessageController extends Controller
         $filePath = storage_path("app/data/data.json");
         $chunkSize = 10000;
         try {
-            $file = File::open($filePath, 'r');
+            $file = fopen($filePath, 'r');
             $wordFrequencyMap = new SplPriorityQueue(); // Use priority queue
             $topWords = [];
 
             while (($line = $file->readline()) !== false) {
                 $data = json_decode($line);
-
                 if (json_last_error() !== JSON_ERROR_NONE) {
                     throw new \Exception('Invalid JSON data: ' . json_last_error_msg());
                 }
-
-                $messageText = $data->message; // Assuming "message" field holds the text
-
-                // Preprocess message text (optional)
+                $messageText = $data->message;
                 $messageText = strtolower($messageText);
-                $messageText = preg_replace('/\W+/', ' ', $messageText); // Remove non-word characters
-
+                $messageText = preg_replace('/\W+/', ' ', $messageText);
                 $words = explode(' ', $messageText);
-
                 foreach ($words as $word) {
                     if ($wordFrequencyMap->count() < 50) {
                         // Add new word directly (top 50 not yet reached)
