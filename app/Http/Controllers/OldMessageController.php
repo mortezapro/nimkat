@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 use SplPriorityQueue;
@@ -12,76 +13,30 @@ class OldMessageController extends Controller
 {
     public function index()
     {
-
         $filePath = storage_path("app/data/data.json");
-        $chunkSize = 10000;
-        try {
-            $file = File::open($filePath, 'r');
-            $wordFrequencyMap = new SplPriorityQueue(); // Use priority queue
-            $topWords = [];
-            $isObjectStartFound = false;
-            $currentObject = '';
-
-            while (($line = $file->readline()) !== false) {
-                $currentObject .= $line;
-
-                // Check for object start
-                if (!$isObjectStartFound && substr($line, 0, 1) === '{') {
-                    $isObjectStartFound = true;
-                }
-
-                // Check for object end
-                if ($isObjectStartFound && substr($line, -1, 1) === '}') {
-                    $data = json_decode($currentObject);
-
-                    if (json_last_error() !== JSON_ERROR_NONE) {
-                        throw new \Exception('Invalid JSON data: ' . json_last_error_msg());
-                    }
-
-                    $messageText = $data->message; // Assuming "message" field holds the text
-
-                    // Preprocess message text (optional)
-                    $messageText = strtolower($messageText);
-                    $messageText = preg_replace('/\W+/', ' ', $messageText); // Remove non-word characters
-
-                    $words = explode(' ', $messageText);
-
+        $handle = fopen($filePath, "r");
+        if ($handle) {
+            while (($line = fgets($handle)) !== false) {
+                $data = json_decode($line, true);
+                foreach ($data['messages'] as $message) {
+                    $text = strtolower($message['text']);
+                    $text = preg_replace("/[^a-zA-Z\s]/", "", $text); // Remove punctuation
+                    $words = explode(" ", $text);
                     foreach ($words as $word) {
-                        if ($wordFrequencyMap->count() < 50) {
-                            // Add new word directly (top 50 not yet reached)
-                            $wordFrequencyMap->insert($word, 1);
-                        } else {
-                            // Check if word exists and update count (if top 50 reached)
-                            if ($wordFrequencyMap->contains($word)) {
-                                $wordFrequencyMap->extract(); // Remove least frequent word
-                                $wordFrequencyMap->insert($word, $wordFrequencyMap->offsetGet($word) + 1);
-                            }
+                        if (!empty($word)) {
+                            $wordFrequencies[$word] = isset($wordFrequencies[$word]) ? $wordFrequencies[$word] + 1 : 1;
                         }
                     }
-
-                    // Process data in chunks (optional, for very large files)
-                    if ($wordFrequencyMap->count() >= $chunkSize) {
-                        // Extract top words from priority queue and merge with existing results
-                        $topChunkWords = [];
-                        while ($wordFrequencyMap->count() > 0) {
-                            $topChunkWords[] = [$wordFrequencyMap->extract(), $wordFrequencyMap->current()];
-                        }
-                        $topWords = array_merge($topWords, $topChunkWords);
-                    }
-
-                    $isObjectStartFound = false; // Reset flag for next object
-                    $currentObject = ''; // Reset current object
                 }
             }
-
-            // After processing entire file, extract final top 50 words
-            $topWords = array_slice($topWords, -50); // Get the last 50 elements (top 50)
-            $topWords = array_reverse($topWords); // Reverse to get top words in order
-
-            return $topWords; // Array of word-count pairs
-
-        } catch (\Exception $e) {
-            return ['error' => $e->getMessage()]; // Handle errors
+            fclose($handle);
+            arsort($wordFrequencies);
+            $topFifty = array_slice($wordFrequencies, 0, 50);
+            foreach ($topFifty as $word => $frequency) {
+                echo "$word: $frequency\n";
+            }
+        } else {
+            echo "Error opening the file.";
         }
     }
 }
