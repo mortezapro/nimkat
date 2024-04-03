@@ -14,7 +14,7 @@ class OldMessageController extends Controller
     {
         $data = Cache::get("data");
         if(!$data){
-            $data = json_decode(file_get_contents('data/data.json'));
+            $data = json_decode(file_get_contents(storage_path('app/data/data.json')));
             Cache::set('data', $data);
         }
         $counts = array_count_values(words(implode(' ', $data)));
