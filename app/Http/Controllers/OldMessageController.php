@@ -22,7 +22,7 @@ class OldMessageController extends Controller
             throw new Exception('Error parsing JSON file: ' . json_last_error_msg());
         }
         $messageData = [];
-        foreach ($data[3] as $key => $message) {
+        foreach ($data as $key => $message) {
             if($key == 20){
                 dd($messageData);
             }
