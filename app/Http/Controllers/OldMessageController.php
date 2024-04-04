@@ -30,7 +30,8 @@ class OldMessageController extends Controller
         }
         $msgData = [];
         foreach ($messageData[3] as $msg) {
-            $msgData[] = $msg;
+            if(isset($msg["type"]))
+            $msgData[] = $msg["type"];
 //            switch ($msg['type']) {
 //                case 'service':
 //                    $msgData['action'] = $msg['action'];
