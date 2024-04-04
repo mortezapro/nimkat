@@ -28,8 +28,9 @@ class OldMessageController extends Controller
                 $messageData[$key] = $message[$key];
             }
         }
+        dd($messageData);
         $msgData = [];
-        foreach ($messageData as $msg) {
+        foreach ($messageData[3] as $msg) {
             switch ($msg['type']) {
                 case 'service':
                     $msgData['action'] = $msg['action'];
