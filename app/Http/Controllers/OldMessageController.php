@@ -40,6 +40,6 @@ class OldMessageController extends Controller
 //                    break;
 //            }
         }
-        dd($messageData);
+        dd($messageData[3]);
     }
 }
