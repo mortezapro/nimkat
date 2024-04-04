@@ -26,21 +26,19 @@ class OldMessageController extends Controller
             if($key == 20){
                 dd($messageData);
             }
-
-            // استخراج داده های مورد نیاز از آرایه بر اساس ساختار JSON شما
-            switch ($message['type']) {
-                case 'service':
-                    $messageData['action'] = $message['action'];
-                    $messageData['actor'] = $message['actor_id'];
-                    $messageData['date'] = Carbon::parse($message['date']);
-                    break;
-                case 'message':
-                    $messageData['sender'] = $message['from_id'];
-                    $messageData['text'] = $message['text'];
-                    $messageData['date'] = Carbon::parse($message['date']);
-                    // استخراج سایر فیلدهای مورد نیاز از پیام
-                    break;
-            }
+            $messageData[] = $message;
+//            switch ($message['type']) {
+//                case 'service':
+//                    $messageData['action'] = $message['action'];
+//                    $messageData['actor'] = $message['actor_id'];
+//                    $messageData['date'] = Carbon::parse($message['date']);
+//                    break;
+//                case 'message':
+//                    $messageData['sender'] = $message['from_id'];
+//                    $messageData['text'] = $message['text'];
+//                    $messageData['date'] = Carbon::parse($message['date']);
+//                    break;
+//            }
         }
         dd($messageData);
     }
