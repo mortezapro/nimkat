@@ -23,7 +23,7 @@ class OldMessageController extends Controller
         }
         $messageData = [];
         foreach ($data as $message) {
-            var_dump($message);
+            dd($message);
 
             // استخراج داده های مورد نیاز از آرایه بر اساس ساختار JSON شما
             switch ($message['type']) {
