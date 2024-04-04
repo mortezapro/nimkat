@@ -23,10 +23,10 @@ class OldMessageController extends Controller
         }
         $messageData = [];
         foreach ($data as $key => $message) {
-            if($key == 20){
-                dd($messageData);
-            }
             $messageData[] = $message;
+            if (isset($message[3]) && is_array($message[3])) {
+                dd($message[3]);
+            }
 //            switch ($message['type']) {
 //                case 'service':
 //                    $messageData['action'] = $message['action'];
