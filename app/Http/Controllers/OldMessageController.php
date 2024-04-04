@@ -24,8 +24,8 @@ class OldMessageController extends Controller
         $messageData = [];
         foreach ($data as $key => $message) {
             $messageData[] = $message;
-            if (isset($message[4])) {
-                dd($message[4]);
+            if (isset($message[$key]) && is_array($message[$key])) {
+                $messageData[$key] = $message[$key];
             }
 //            switch ($message['type']) {
 //                case 'service':
