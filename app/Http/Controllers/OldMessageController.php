@@ -24,7 +24,7 @@ class OldMessageController extends Controller
 //            $telegramMessageId = $message['message_id'];
 //            $senderId = $message['from']['id'];
             $text = $message ?? null;
-            echo $text."<br>";
+            print_r($text)."<br>";
         }
     }
 }
