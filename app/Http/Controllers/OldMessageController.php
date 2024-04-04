@@ -23,7 +23,7 @@ class OldMessageController extends Controller
         foreach ($data as $message) {
 //            $telegramMessageId = $message['message_id'];
 //            $senderId = $message['from']['id'];
-            $text = $message['text'] ?? null;
+            $text = $message ?? null;
             echo $text."<br>";
         }
     }
