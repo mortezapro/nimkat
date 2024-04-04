@@ -40,6 +40,10 @@ class OldMessageController extends Controller
 //                    break;
 //            }
         }
-        dd($messageData[3]);
+        $msgData = [];
+        foreach ($messageData[3] as $msg) {
+            dd($msg);
+            $msgData[] = $msg;
+        }
     }
 }
