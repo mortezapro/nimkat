@@ -42,8 +42,19 @@ class OldMessageController extends Controller
         }
         $msgData = [];
         foreach ($messageData[3] as $msg) {
-            dd($msg);
-            $msgData[] = $msg;
+            switch ($msg['type']) {
+                case 'service':
+                    $msgData['action'] = $msg['action'];
+                    $msgData['actor'] = $msg['actor_id'];
+                    $msgData['date'] = Carbon::parse($msg['date']);
+                    break;
+                case 'message':
+                    $msgData['sender'] = $msg['from_id'];
+                    $msgData['text'] = $msg['text'];
+                    $msgData['date'] = Carbon::parse($msg['date']);
+                    break;
+            }
         }
+        dd($msgData);
     }
 }
