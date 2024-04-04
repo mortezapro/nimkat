@@ -27,21 +27,9 @@ class OldMessageController extends Controller
             if (isset($message[$key]) && is_array($message[$key])) {
                 $messageData[$key] = $message[$key];
             }
-//            switch ($message['type']) {
-//                case 'service':
-//                    $messageData['action'] = $message['action'];
-//                    $messageData['actor'] = $message['actor_id'];
-//                    $messageData['date'] = Carbon::parse($message['date']);
-//                    break;
-//                case 'message':
-//                    $messageData['sender'] = $message['from_id'];
-//                    $messageData['text'] = $message['text'];
-//                    $messageData['date'] = Carbon::parse($message['date']);
-//                    break;
-//            }
         }
         $msgData = [];
-        foreach ($messageData[3] as $msg) {
+        foreach ($messageData as $msg) {
             switch ($msg['type']) {
                 case 'service':
                     $msgData['action'] = $msg['action'];
