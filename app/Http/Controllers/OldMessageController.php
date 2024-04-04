@@ -22,8 +22,10 @@ class OldMessageController extends Controller
             throw new Exception('Error parsing JSON file: ' . json_last_error_msg());
         }
         $messageData = [];
-        foreach ($data as $message) {
-            dd($message);
+        foreach ($data as $key => $message) {
+            if($key == 20){
+                dd($messageData);
+            }
 
             // استخراج داده های مورد نیاز از آرایه بر اساس ساختار JSON شما
             switch ($message['type']) {
