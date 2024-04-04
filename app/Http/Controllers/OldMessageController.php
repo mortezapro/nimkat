@@ -28,21 +28,21 @@ class OldMessageController extends Controller
                 $messageData[$key] = $message[$key];
             }
         }
-        dd($messageData);
         $msgData = [];
         foreach ($messageData[3] as $msg) {
-            switch ($msg['type']) {
-                case 'service':
-                    $msgData['action'] = $msg['action'];
-                    $msgData['actor'] = $msg['actor_id'];
-                    $msgData['date'] = Carbon::parse($msg['date']);
-                    break;
-                case 'message':
-                    $msgData['sender'] = $msg['from_id'];
-                    $msgData['text'] = $msg['text'];
-                    $msgData['date'] = Carbon::parse($msg['date']);
-                    break;
-            }
+            $msgData[] = $msg;
+//            switch ($msg['type']) {
+//                case 'service':
+//                    $msgData['action'] = $msg['action'];
+//                    $msgData['actor'] = $msg['actor_id'];
+//                    $msgData['date'] = Carbon::parse($msg['date']);
+//                    break;
+//                case 'message':
+//                    $msgData['sender'] = $msg['from_id'];
+//                    $msgData['text'] = $msg['text'];
+//                    $msgData['date'] = Carbon::parse($msg['date']);
+//                    break;
+//            }
         }
         dd($msgData);
     }
