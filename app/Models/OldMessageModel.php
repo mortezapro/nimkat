@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Morilog\Jalali\Jalalian;
 
 class OldMessageModel extends Model
 {
@@ -13,4 +14,8 @@ class OldMessageModel extends Model
     protected $fillable = [
         "date","sender","sender_id","text","reply_to_message_id"
     ];
+    public function getDateAttribute()
+    {
+        return Jalalian::forge($this->date)->format("%d - %m %Y H:i");
+    }
 }
