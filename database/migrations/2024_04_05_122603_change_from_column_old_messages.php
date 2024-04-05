@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('column_old_messages', function (Blueprint $table) {
+        Schema::table('old_messages', function (Blueprint $table) {
             $table->dropColumn("from");
             $table->dropColumn("from_id");
 
