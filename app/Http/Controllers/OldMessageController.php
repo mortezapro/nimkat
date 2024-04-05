@@ -40,7 +40,8 @@ class OldMessageController extends Controller
                     $msgData[$key]['text'] = "";
                     foreach ($msg["text"] as $item) {
                         if(is_string($item)){
-                            $msgData[$key]['text'].= $item;
+//                            $msgData[$key]['text'].= $item;
+                            $msgData[$key]['text'] = "sssss";
                         }
                     }
                 } else {
