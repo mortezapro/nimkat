@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('old_messages', function (Blueprint $table) {
             $table->id();
             $table->string("date");
-            $table->string("sender");
-            $table->string("sender_id");
-            $table->longText("text");
+            $table->string("sender")->nullable();
+            $table->string("sender_id")->nullable();
+            $table->longText("text")->nullable();
             $table->tinyInteger("reply_to_message_id")->nullable();
             $table->timestamps();
         });
