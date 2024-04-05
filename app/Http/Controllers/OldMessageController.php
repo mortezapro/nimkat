@@ -106,8 +106,10 @@ class OldMessageController extends Controller
                 ->limit(1000)
                 ->get();
             $topWords = $topWords->pluck('word', 'count')->toArray();
+            Cache::set("top-words",$topWords);
         }
-        Cache::set("top-words",$topWords);
+
+        dd($topWords);
         return view("top-words",compact("topWords"));
     }
 }
