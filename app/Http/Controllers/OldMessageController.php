@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MessageModel;
 use App\Models\OldMessageModel;
 use Carbon\Carbon;
 use Exception;
@@ -12,10 +13,11 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 use SplPriorityQueue;
 class OldMessageController extends Controller
 {
-    public function index()
+    /*public function index()
     {
         $filePath = storage_path("app/data/data.json");
         $jsonString = File::get($filePath);
@@ -63,6 +65,21 @@ class OldMessageController extends Controller
             }
         });
 
+    }*/
+    public function index(Request $request)
+    {
+        $perPage = $request->perPage ?: 10;
+        $messages = OldMessageModel::when($request->has("column"),function ($q) use($request){
+            return $q->orderBy($request->column,$request->orderBy);
+        })->when($request->has("search"),function ($q) use ($request){
+            $search = trim($request->search);
+            return $q->where("text","like","%{$search}%")->orWhere("sender","like","%{$search}%");
+        })->latest()->paginate($perPage)->withQueryString();
+
+        if($request->has("column") || $request->has("search") || $request->has("page")){
+            return $messages;
+        }
+        return Inertia::render('OldMessage/List', compact("messages"));
     }
     public function flattenArray($array):array {
         $flattened = [];
