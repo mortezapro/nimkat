@@ -50,7 +50,7 @@ class OldMessageController extends Controller
             }
         }
         $chunkSize = 5000;
-        OldMessageModel::chunk($data, $chunkSize, function ($records) {
+        OldMessageModel::chunk($msgData, $chunkSize, function ($records) {
             OldMessageModel::insert($records);
         });
     }
