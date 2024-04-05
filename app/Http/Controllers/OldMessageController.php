@@ -32,15 +32,15 @@ class OldMessageController extends Controller
         $msgData = [];
         foreach ($messageData[3] as $key => $msg) {
             if(isset($msg["type"]) && $msg["type"] == "message"){
-                $msgData[]["date"] = Carbon::parse($msg['date']);
-                $msgData[]["from"] = $msg['from'];
-                $msgData[]["from_id"] = $msg['from_id'];
+                $msgData[$key]["date"] = Carbon::parse($msg['date']);
+                $msgData[$key]["from"] = $msg['from'];
+                $msgData[$key]["from_id"] = $msg['from_id'];
                 if(is_array($msg['text'])){
-                    $msg[]['text'] = Arr::flatten($msg['text']);
+                    $msg[$key]['text'] = Arr::flatten($msg['text']);
                 }
-                $msgData[]["text"] = $msg['text'];
+                $msgData[$key]["text"] = $msg['text'];
                 if(isset($msg["reply_to_message_id"])){
-                    $msgData[]["reply_to"] = $msg["reply_to_message_id"];
+                    $msgData[$key]["reply_to"] = $msg["reply_to_message_id"];
                 }
             }
         }
