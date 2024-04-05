@@ -37,6 +37,7 @@ class OldMessageController extends Controller
                 $msgData[$key]["from_id"] = $msg['from_id'];
                 if(is_array($msg['text'])){
                     $msg[$key]['text'] = Arr::flatten($msg['text']);
+                    dd($msg[$key]);
                 }
                 $msgData[$key]["text"] = $msg['text'];
                 if(isset($msg["reply_to_message_id"])){
