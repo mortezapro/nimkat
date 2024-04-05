@@ -24,10 +24,11 @@ class OldMessageController extends Controller
         $messageData = [];
         foreach ($data as $key => $message) {
             $messageData[] = $message;
-            if (isset($message[$key]) && is_array($message[$key])) {
-                $messageData[$key] = $message[$key];
+            if (isset($message["text"]) && is_array($message["text"])) {
+                $messageData[] = $message["text"];
             }
         }
+        dd($messageData);
         $msgData = [];
         foreach ($messageData[3] as $msg) {
             if(isset($msg["message"])){
