@@ -101,6 +101,7 @@ class OldMessageController extends Controller
             ->orderByDesc('count')
             ->limit(1000)
             ->get();
-        dd($topWords);
+        $wordsAndCounts = $topWords->pluck('word', 'count')->toArray();
+        dd($wordsAndCounts);
     }
 }
