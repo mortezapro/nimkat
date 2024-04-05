@@ -25,8 +25,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('column_old_messages', function (Blueprint $table) {
-            //
+        Schema::table('old_messages', function (Blueprint $table) {
+            $table->string('from');
+            $table->integer('from_id');
         });
     }
 };
