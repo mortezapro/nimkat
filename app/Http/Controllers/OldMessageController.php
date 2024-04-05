@@ -45,6 +45,7 @@ class OldMessageController extends Controller
                     }
                 } else {
                     $msg[$key]['text'] = $msg['text'];
+                    dd($msg);
                 }
                 if(isset($msg["reply_to_message_id"])){
                     $msgData[$key]["reply_to_message_id"] = $msg["reply_to_message_id"];
