@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 
 export default function List({ auth,messages }) {
-    const entity = "old-messages"
+    const entity = "old-message"
     const [data,setData] = useState(messages);
     const [filterParams,setFilterParams] = useState({search:"",sortField:"",orderBy:"",perPage:10});
     const [isLoading,setIsLoading] = useState(false);
