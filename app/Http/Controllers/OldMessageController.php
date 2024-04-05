@@ -36,6 +36,7 @@ class OldMessageController extends Controller
                 $msgData[$key]["from"] = $msg['from'];
                 $msgData[$key]["from_id"] = $msg['from_id'];
                 if(is_array($msg['text'])){
+                    dd($msg['text']);
                     $msg[$key]['text'] = "";
                     foreach ($msg["text"] as $item) {
                         if(is_string($item)){
