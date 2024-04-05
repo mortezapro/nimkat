@@ -36,10 +36,7 @@ class OldMessageController extends Controller
                 $msgData[$key]["from"] = $msg['from'];
                 $msgData[$key]["from_id"] = $msg['from_id'];
                 if(is_array($msg['text'])){
-                    $textStrings = array_filter($msg['text'], function ($item) {
-                        return is_string($item);
-                    });
-                    $msg[$key]['text'] = Arr::flatten($textStrings);
+                    $msg[$key]['text'] = implode(",",$msg['text']);
                     dd($msg[$key]);
                 }
                 $msgData[$key]["text"] = $msg['text'];
