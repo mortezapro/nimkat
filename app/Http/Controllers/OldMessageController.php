@@ -36,7 +36,6 @@ class OldMessageController extends Controller
                 $msgData[$key]["from"] = $msg['from'];
                 $msgData[$key]["from_id"] = $msg['from_id'];
                 if(is_array($msg['text'])){
-                    dd($msg['text']);
                     $msg[$key]['text'] = "";
                     foreach ($msg["text"] as $item) {
                         if(is_string($item)){
@@ -44,14 +43,13 @@ class OldMessageController extends Controller
                         }
                     }
                 }
-                dd($msg[$key]['text']);
                 if(isset($msg["reply_to_message_id"])){
                     $msgData[$key]["reply_to"] = $msg["reply_to_message_id"];
                 }
             }
         }
         foreach ($msgData as $msg1) {
-            dd($msg1);
+            dd($msg1[0],$msg1[1],$msg1[2]);
         }
     }
     public function flattenArray($array):array {
