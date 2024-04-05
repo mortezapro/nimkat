@@ -30,7 +30,7 @@ class OldMessageController extends Controller
         }
         $msgData = [];
         foreach ($messageData[3] as $key => $msg) {
-            dd($msg[2]);
+            if($key == 2) dd($msg);
             if(isset($msg["message"])){
                 $msgData["text"] = $msg["message"];
             }
