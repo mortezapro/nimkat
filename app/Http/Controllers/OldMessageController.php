@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 use SplPriorityQueue;
@@ -53,8 +54,15 @@ class OldMessageController extends Controller
                 }
             }
         }
-        collect($msgData)->chunk(1000)->each(function ($chunk) {
-            OldMessageModel::insert($chunk->toArray());
+        collect($msgData)->chunk(100)->each(function ($chunk) {
+            try {
+                OldMessageModel::insert($chunk->toArray());
+            } catch (\Exception $e) {
+                // Log any exceptions for debugging
+                Log::error('Error inserting chunk: ' . $e->getMessage());
+                // Optionally, you can re-throw the exception to halt execution
+                // throw $e;
+            }
         });
 
     }
