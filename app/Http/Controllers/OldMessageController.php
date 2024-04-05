@@ -55,14 +55,14 @@ class OldMessageController extends Controller
             }
         }
         collect($msgData)->chunk(100)->each(function ($chunk) {
-            try {
-                OldMessageModel::insert($chunk->toArray());
-            } catch (\Exception $e) {
-                // Log any exceptions for debugging
-                Log::error('Error inserting chunk: ' . $e->getMessage());
-                // Optionally, you can re-throw the exception to halt execution
-                // throw $e;
+            foreach ($chunk as $item) {
+                OldMessageModel::create($item);
             }
+//            try {
+//                OldMessageModel::insert($chunk->toArray());
+//            } catch (\Exception $e) {
+//                Log::error('Error inserting chunk: ' . $e->getMessage());
+//            }
         });
 
     }
