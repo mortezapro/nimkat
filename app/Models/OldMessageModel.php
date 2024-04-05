@@ -11,6 +11,6 @@ class OldMessageModel extends Model
     protected $table = "old_messages";
     protected $primaryKey = "id";
     protected $fillable = [
-        "date","from","from_id","text","reply_to_message_id"
+        "date","sender","sender_id","text","reply_to_message_id"
     ];
 }

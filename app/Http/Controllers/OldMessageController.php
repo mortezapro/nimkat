@@ -34,8 +34,8 @@ class OldMessageController extends Controller
         foreach ($messageData[3] as $key => $msg) {
             if(isset($msg["type"]) && $msg["type"] == "message"){
                 $msgData[$key]["date"] = Carbon::parse($msg['date']);
-                $msgData[$key]["from"] = $msg['from'];
-                $msgData[$key]["from_id"] = $msg['from_id'];
+                $msgData[$key]["sender"] = $msg['from'];
+                $msgData[$key]["sender_id"] = $msg['from_id'];
                 if(is_array($msg['text'])){
                     $msg[$key]['text'] = "";
                     foreach ($msg["text"] as $item) {
