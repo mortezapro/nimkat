@@ -49,11 +49,11 @@ class OldMessageController extends Controller
                 }
             }
         }
-        $chunkSize = 5000;
-
-        OldMessageModel::chunk($msgData, $chunkSize, function ($records) {
-            OldMessageModel::insert($records);
-        });
+        $chunks = array_chunk($msgData, 1000);
+        OldMessageModel::insert($chunks);
+//        OldMessageModel::chunk($msgData, $chunkSize, function ($records) {
+//            OldMessageModel::insert($records);
+//        });
     }
     public function flattenArray($array):array {
         $flattened = [];
