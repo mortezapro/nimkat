@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("sender")->nullable();
             $table->string("sender_id")->nullable();
             $table->longText("text")->nullable();
-            $table->tinyInteger("reply_to_message_id")->nullable();
+            $table->string("reply_to_message_id")->nullable();
             $table->timestamps();
         });
     }
