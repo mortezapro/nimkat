@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redis;
@@ -31,15 +32,16 @@ class OldMessageController extends Controller
         $msgData = [];
         foreach ($messageData[3] as $key => $msg) {
             if(isset($msg["type"]) && $msg["type"] == "message"){
-                $msgData["date"] = Carbon::parse($msg['date']);
-                $msgData["from"] = $msg['from'];
-                $msgData["from_id"] = $msg['from_id'];
-                $msgData["text"] = $msg['text'];
-//                isset($msg["reply_from_"])
-                $msgData["reply_to"] = $msg['text'];
-                if($key > 20)
-                dd($msg);
-                $msgData[] = $msg;
+                $msgData[]["date"] = Carbon::parse($msg['date']);
+                $msgData[]["from"] = $msg['from'];
+                $msgData[]["from_id"] = $msg['from_id'];
+                if(is_array($msg['text'])){
+                    $msg[]['text'] = Arr::flatten($msg['text']);
+                }
+                $msgData[]["text"] = $msg['text'];
+                if(isset($msg["reply_to_message_id"])){
+                    $msgData[]["reply_to"] = $msg["reply_to_message_id"];
+                }
             }
 //            switch ($msg['type']) {
 //                case 'service':
