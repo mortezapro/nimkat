@@ -55,7 +55,7 @@ class OldMessageController extends Controller
             }
         }
         collect($msgData)->chunk(100)->each(function ($chunk) {
-            OldMessageModel::insert($chunk);
+            OldMessageModel::insert($chunk->toArray());
         });
 
     }
