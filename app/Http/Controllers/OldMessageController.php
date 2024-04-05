@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OldMessageModel;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -44,11 +45,14 @@ class OldMessageController extends Controller
                     }
                 }
                 if(isset($msg["reply_to_message_id"])){
-                    $msgData[$key]["reply_to"] = $msg["reply_to_message_id"];
+                    $msgData[$key]["reply_to_message_id"] = $msg["reply_to_message_id"];
                 }
             }
         }
-        dd($msgData);
+        $chunkSize = 5000;
+        OldMessageModel::chunk($data, $chunkSize, function ($records) {
+            OldMessageModel::insert($records);
+        });
     }
     public function flattenArray($array):array {
         $flattened = [];
