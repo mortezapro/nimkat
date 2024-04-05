@@ -35,7 +35,9 @@ class OldMessageController extends Controller
                 $msgData["from"] = $msg['from'];
                 $msgData["from_id"] = $msg['from_id'];
                 $msgData["text"] = $msg['text'];
-                if($key > 21)
+//                isset($msg["reply_from_"])
+                $msgData["reply_to"] = $msg['text'];
+                if($key > 20)
                 dd($msg);
                 $msgData[] = $msg;
             }
