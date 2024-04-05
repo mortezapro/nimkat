@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('old_messages', function (Blueprint $table) {
-            $table->dropColumn("from");
-            $table->dropColumn("from_id");
+            $table->dropColumn('from');
+            $table->dropColumn('from_id');
 
-            $table->addColumn("string","sender");
-            $table->addColumn("string","sender_id");
+            $table->string('sender');
+            $table->string('sender_id');
         });
     }
 
