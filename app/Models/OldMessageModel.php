@@ -16,6 +16,6 @@ class OldMessageModel extends Model
     ];
     public function getDateAttribute()
     {
-        return Jalalian::forge($this->attributes["date"])->format("%d - %m %Y H:i");
+        return Jalalian::forge($this->attributes["date"])->format("%d - %m %Y | H:i");
     }
 }
