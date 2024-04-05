@@ -108,8 +108,6 @@ class OldMessageController extends Controller
             $topWords = $topWords->pluck('word', 'count')->toArray();
             Cache::set("top-words",$topWords);
         }
-
-        dd($topWords);
         return view("top-words",compact("topWords"));
     }
 }

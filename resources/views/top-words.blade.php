@@ -21,10 +21,10 @@
         <td>کلمه</td>
         <td>تعداد تکرار</td>
     </tr>
-    @foreach($topWords as $word)
+    @foreach($topWords as $key => $word)
         <tr>
-            <td>{{ $word->word }}</td>
-            <td>{{ $word->count }}</td>
+            <td>{{ $key }}</td>
+            <td>{{ $word }}</td>
         </tr>
     @endforeach
 </table>
