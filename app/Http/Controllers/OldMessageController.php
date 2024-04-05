@@ -55,14 +55,7 @@ class OldMessageController extends Controller
             }
         }
         collect($msgData)->chunk(100)->each(function ($chunk) {
-            foreach ($chunk as $item) {
-                OldMessageModel::create($item);
-            }
-//            try {
-//                OldMessageModel::insert($chunk->toArray());
-//            } catch (\Exception $e) {
-//                Log::error('Error inserting chunk: ' . $e->getMessage());
-//            }
+            OldMessageModel::insert($chunk);
         });
 
     }
