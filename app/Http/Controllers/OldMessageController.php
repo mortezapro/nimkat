@@ -86,8 +86,12 @@ class OldMessageController extends Controller
 
     public function frequentWord()
     {
-        $topWords = OldMessageModel::select(DB::raw('SUBSTRING_INDEX(SUBSTRING_INDEX(text, " ", numbers.n), " ", -1) AS word'), DB::raw('COUNT(*) AS count'))
-            ->join(DB::raw('(SELECT (a.n + b.n * 10 + 1) AS n
+
+
+        $topWords = Cache::get("top-words");
+        if(!$topWords){
+            $topWords = OldMessageModel::select(DB::raw('SUBSTRING_INDEX(SUBSTRING_INDEX(text, " ", numbers.n), " ", -1) AS word'), DB::raw('COUNT(*) AS count'))
+                ->join(DB::raw('(SELECT (a.n + b.n * 10 + 1) AS n
             FROM
                 (SELECT 0 AS n UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL
                  SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) AS a
@@ -95,13 +99,15 @@ class OldMessageController extends Controller
                 (SELECT 0 AS n UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL
                  SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) AS b
         ) AS numbers'), function ($join) {
-                $join->on(DB::raw('CHAR_LENGTH(text) - CHAR_LENGTH(REPLACE(text, " ", ""))'), '>=', DB::raw('numbers.n - 1'));
-            })
-            ->groupBy('word')
-            ->orderByDesc('count')
-            ->limit(1000)
-            ->get();
-        $wordsAndCounts = $topWords->pluck('word', 'count')->toArray();
-        dd($wordsAndCounts);
+                    $join->on(DB::raw('CHAR_LENGTH(text) - CHAR_LENGTH(REPLACE(text, " ", ""))'), '>=', DB::raw('numbers.n - 1'));
+                })
+                ->groupBy('word')
+                ->orderByDesc('count')
+                ->limit(1000)
+                ->get();
+            $topWords = $topWords->pluck('word', 'count')->toArray();
+        }
+        Cache::set("top-words",$topWords);
+        return view("top-words",compact("topWords"));
     }
 }
