@@ -49,7 +49,7 @@ class OldMessageController extends Controller
                 }
             }
         }
-        $chunks = array_chunk($msgData, 100);
+        $chunks = array_chunk($msgData, 10);
         dd($chunks);
         OldMessageModel::insert($chunks);
 
