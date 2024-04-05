@@ -44,6 +44,8 @@ class OldMessageController extends Controller
                 }
             }
         }
-        dd($msgData[0],$msgData[1],$msgData[2]);
+        foreach ($msgData as $msg1) {
+            dd($msg1);
+        }
     }
 }
