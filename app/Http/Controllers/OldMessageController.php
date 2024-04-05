@@ -41,13 +41,11 @@ class OldMessageController extends Controller
                     $msgData[$key]['text'] = "";
                     foreach ($msg["text"] as $item) {
                         if(is_string($item)){
-//                            $msgData[$key]['text'].= $item;
-                            $msgData[$key]['text'] = "sssss";
+                            $msgData[$key]['text'].= $item;
                         }
                     }
                 } else {
-//                    $msgData[$key]['text'] = $msg['text'];
-                    $msgData[$key]['text'] = "sssss";
+                    $msgData[$key]['text'] = $msg['text'];
                 }
                 if(isset($msg["reply_to_message_id"])){
                     $msgData[$key]["reply_to_message_id"] = $msg["reply_to_message_id"];
@@ -55,7 +53,14 @@ class OldMessageController extends Controller
             }
         }
         collect($msgData)->chunk(100)->each(function ($chunk) {
-            OldMessageModel::insert($chunk->toArray());
+
+            try {
+                foreach ($chunk as $item) {
+                    OldMessageModel::create($item);
+                }
+            } catch (\Exception $e) {
+                Log::error('Error inserting chunk: ' . $e->getMessage());
+            }
         });
 
     }
