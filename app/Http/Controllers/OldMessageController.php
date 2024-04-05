@@ -43,19 +43,7 @@ class OldMessageController extends Controller
                     $msgData[]["reply_to"] = $msg["reply_to_message_id"];
                 }
             }
-//            switch ($msg['type']) {
-//                case 'service':
-//                    $msgData['action'] = $msg['action'];
-//                    $msgData['actor'] = $msg['actor_id'];
-//                    $msgData['date'] = Carbon::parse($msg['date']);
-//                    break;
-//                case 'message':
-//                    $msgData['sender'] = $msg['from_id'];
-//                    $msgData['text'] = $msg['text'];
-//                    $msgData['date'] = Carbon::parse($msg['date']);
-//                    break;
-//            }
         }
-        dd($msgData);
+        dd($msgData[0],$msgData[1],$msgData[2]);
     }
 }
