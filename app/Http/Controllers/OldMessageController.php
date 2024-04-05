@@ -48,7 +48,7 @@ class OldMessageController extends Controller
                 }
             }
         }
-        dd($msgData[0],$msgData[1],$msgData[2]);
+        dd($msgData);
     }
     public function flattenArray($array):array {
         $flattened = [];
