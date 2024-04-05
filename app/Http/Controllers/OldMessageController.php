@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
@@ -81,15 +82,25 @@ class OldMessageController extends Controller
         }
         return Inertia::render('OldMessage/List', compact("messages"));
     }
-    public function flattenArray($array):array {
-        $flattened = [];
-        foreach ($array as $item) {
-            if (is_array($item)) {
-                $flattened = array_merge($flattened, $this->flattenArray($item));
-            } else {
-                $flattened[] = $item;
-            }
-        }
-        return $flattened;
+
+
+    public function frequentWord()
+    {
+        $topWords = OldMessageModel::select(DB::raw('SUBSTRING_INDEX(SUBSTRING_INDEX(text, " ", numbers.n), " ", -1) AS word'), DB::raw('COUNT(*) AS count'))
+            ->join(DB::raw('(SELECT (a.n + b.n * 10 + 1) AS n
+            FROM
+                (SELECT 0 AS n UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL
+                 SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) AS a
+                CROSS JOIN
+                (SELECT 0 AS n UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL
+                 SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) AS b
+        ) AS numbers'), function ($join) {
+                $join->on(DB::raw('CHAR_LENGTH(text) - CHAR_LENGTH(REPLACE(text, " ", ""))'), '>=', DB::raw('numbers.n - 1'));
+            })
+            ->groupBy('word')
+            ->orderByDesc('count')
+            ->limit(1000)
+            ->get();
+        dd($topWords);
     }
 }
