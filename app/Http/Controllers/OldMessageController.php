@@ -49,9 +49,9 @@ class OldMessageController extends Controller
                 }
             }
         }
-        $chunks = array_chunk($msgData, 10);
-        dd($chunks);
-        OldMessageModel::insert($chunks);
+        collect($msgData)->chunk(1000)->each(function ($chunk) {
+            OldMessageModel::insert($chunk->toArray());
+        });
 
     }
     public function flattenArray($array):array {
