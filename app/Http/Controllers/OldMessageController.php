@@ -36,7 +36,7 @@ class OldMessageController extends Controller
                 $msgData[$key]["from"] = $msg['from'];
                 $msgData[$key]["from_id"] = $msg['from_id'];
                 if(is_array($msg['text'])){
-                    $msg[$key]['text'] = Arr::flatten($msg['text']);
+                    $msg[$key]['text'] = $this->flattenArray($msg['text']);
                     dd($msg[$key]);
                 }
                 $msgData[$key]["text"] = $msg['text'];
@@ -48,5 +48,16 @@ class OldMessageController extends Controller
         foreach ($msgData as $msg1) {
             dd($msg1);
         }
+    }
+    public function flattenArray($array):array {
+        $flattened = [];
+        foreach ($array as $item) {
+            if (is_array($item)) {
+                $flattened = array_merge($flattened, $this->flattenArray($item));
+            } else {
+                $flattened[] = $item;
+            }
+        }
+        return $flattened;
     }
 }
