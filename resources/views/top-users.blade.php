@@ -29,7 +29,7 @@
                 <table class="table table-primary text-center">
                     <thead>
                         <tr>
-                            <th>کلمه</th>
+                            <th>کاربر</th>
                             <th>تعداد پیام</th>
                         </tr>
                     </thead>
