@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get("old-message",[OldMessageController::class,"index"])->name("old-message.index");
     Route::get("get-frequent-words",[OldMessageController::class,"frequentWord"])->name("frequent.word.index");
+    Route::get("get-active-user",[UserController::class,"activeUser"])->name("active.user.index");
     Route::resource("messages",MessageController::class);
     Route::resource("users",UserController::class);
 });

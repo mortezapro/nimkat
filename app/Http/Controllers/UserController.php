@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\MessageModel;
+use App\Models\OldMessageModel;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -23,5 +25,16 @@ class UserController extends Controller
             return $users;
         }
         return Inertia::render('User/List', compact("users"));
+    }
+
+    public function activeUser()
+    {
+        $users = OldMessageModel::select('sender', DB::raw('COUNT(*) as message_count'))
+            ->groupBy('sender')
+            ->orderByDesc('message_count')
+            ->limit(50)
+            ->get();
+        dd($users);
+        return view("top-users");
     }
 }

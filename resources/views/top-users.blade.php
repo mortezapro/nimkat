@@ -33,7 +33,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($topWords as $key => $word)
+                    @foreach($topUsers as $key => $user)
                         <tr>
                             <td>{{ $key }}</td>
                             <td>{{ $word }}</td>
