@@ -30,7 +30,7 @@
                     <thead>
                         <tr>
                             <td>کلمه</td>
-                            <td>تعداد تکرار</td>
+                            <td>تعداد پیام</td>
                         </tr>
                     </thead>
                     <tbody>
