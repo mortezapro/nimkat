@@ -18,7 +18,7 @@
     <div class="row justify-content-center table-striped-columns table-hover">
         <div class="col-lg-8 col-12">
             <div class="table-responsive">
-                <table class="table table-stripped">
+                <table class="table table-primary text-center">
                     <thead>
                         <tr>
                             <td>کلمه</td>
