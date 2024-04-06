@@ -29,12 +29,11 @@ class UserController extends Controller
 
     public function activeUser()
     {
-        $users = OldMessageModel::select('sender', DB::raw('COUNT(*) as message_count'))
+        $topUsers = OldMessageModel::select('sender', DB::raw('COUNT(*) as message_count'))
             ->groupBy('sender')
             ->orderByDesc('message_count')
             ->limit(50)
             ->get();
-        dd($users);
-        return view("top-users");
+        return view("top-users",compact("topUsers"));
     }
 }

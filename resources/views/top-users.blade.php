@@ -33,10 +33,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($topUsers as $key => $user)
+                    @foreach($topUsers as $user)
                         <tr>
-                            <td>{{ $key }}</td>
-                            <td>{{ $word }}</td>
+                            <td>{{ $user->sender }}</td>
+                            <td>{{ $user->message_count }}</td>
                         </tr>
                     @endforeach
                     </tbody>
