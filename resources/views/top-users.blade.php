@@ -16,6 +16,7 @@
             font-family: "iran-yekan";
         }
         *{
+            direction: rtl;
             font-family: "iran-yekan" !important;
         }
     </style>
