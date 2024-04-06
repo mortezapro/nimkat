@@ -13,10 +13,10 @@
     <style>
         @font-face {
             src: url("{{ asset("fonts/iranyekan.woff2") }}");
-            font-family: "iran-yekan"!important;
+            font-family: "iran-yekan";
         }
         *{
-            font-family: "iran-yekan", serif;
+            font-family: "iran-yekan" !important;
         }
     </style>
 </head>
