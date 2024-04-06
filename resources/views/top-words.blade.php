@@ -13,7 +13,7 @@
     <style>
         @font-face {
             src: url("{{ asset("fonts/iranSans.woff2") }}");
-            font-family: "iran-yekan", serif;
+            font-family: "iran-yekan"!important;
         }
         body{
             font-family: "iran-yekan", serif;
