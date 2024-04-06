@@ -15,7 +15,7 @@
 </head>
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center table-striped-columns table-hover">
         <div class="col-lg-8 col-12">
             <div class="table-responsive">
                 <table class="table table-stripped">
