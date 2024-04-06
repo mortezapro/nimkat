@@ -29,8 +29,8 @@
                 <table class="table table-primary text-center">
                     <thead>
                         <tr>
-                            <td>کلمه</td>
-                            <td>تعداد پیام</td>
+                            <th>کلمه</th>
+                            <th>تعداد پیام</th>
                         </tr>
                     </thead>
                     <tbody>

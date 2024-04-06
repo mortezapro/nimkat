@@ -41,7 +41,8 @@
                     @endforeach
                     </tbody>
                 </table>
-                <table>
+
+                <table class="mt-5 table table-primary text-center">
                     <tr>
                         <td>😊</td>
                         <td>4666</td>
